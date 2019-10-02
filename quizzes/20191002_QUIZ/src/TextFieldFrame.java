@@ -1,6 +1,6 @@
 // Fig. 12.9: TextFieldFrame.java
 // JTextFields and JPasswordFields.
-
+///
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
