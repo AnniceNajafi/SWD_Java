@@ -5,15 +5,11 @@ Name: S27_Machine_learning
 Level of Difficulty: Hard
  */
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.*;
-import java.util.Scanner;
 import java.io.IOException;
-import java.util.Random;
-
 
 
 public class MachineLearning {
@@ -33,7 +29,7 @@ public class MachineLearning {
         File myFile2 = new File("S27-MLHard.csv");
         Scanner sc2 = new Scanner(myFile2);
     knearest("S27-MLMedium.csv", arr3, 5);
-    kmeans("S27-MLHard.csv", 5);
+    kmeans("=S27-MLHard.csv", 4);
 
 }
 
@@ -92,12 +88,12 @@ public class MachineLearning {
 
     ////The medium part - k-nearest algorithm
 
-    public static void knearest(String str, double[] arr, int k) throws IOException
+    public static String knearest(String str, double[] arr, int k) throws IOException
     {
         ///First Read in the file
         File myFile = new File(str);
         Scanner theFile = new Scanner(myFile);
-        /**
+        /*
         In this part of the program,
         I. the program should read in each line then separate the line into 5 numbers and one
         string then it should store the Euclidean distance and the related class in a 2 x length matrix.
@@ -163,13 +159,17 @@ public class MachineLearning {
                vote2++;
            }
         }
+        String res;
 //        System.out.println(vote1 + " "+vote2);
         if(vote1>=vote2){
             System.out.println("\"class1\"");
+            res="class1";
         }
         else{
             System.out.println("\"class2\"");
+            res="class2";
         }
+        return res;
 
     }
 
@@ -177,15 +177,19 @@ public class MachineLearning {
     ///K-means clustering algorithm
     ///Based on file of data points with two features.
     public static void kmeans(String str, int k) throws IOException{
+        /*
+        For k-means clustering we first have to assign k  numbers as the centroids of k clusters then find the Euclidean distance of each
+        data point from the cluster centers, the centroid closest to the data point means that the data point belongs to that cluster.
+        The next step is to find the centroid within each cluster and assign data points to clusters again and redefine clusters.
+         */
         ///Read in from the file and find the length of the file.
-
         File myFile = new File("S27-MLHard.csv");
         Scanner theFile = new Scanner(myFile);
-        ///Define an array list to store the Euclidean distances between the cluster points and the data sets.
+        ///First store all data in one row
+        ///read in from the file and store all data in an arraylist called eachnum, the data numbers with odd index are the first feature
+        ///with the even feature are the second feature. --> eachnum
         ArrayList<Double> eachnum = new ArrayList<Double>();
-        ArrayList<Double> Distlist = new ArrayList<Double>();
         int length=0;
-        ///read in from the file and store all data in an arraylist called eachnum
         while(theFile.hasNextLine()) {
             String line =  theFile.nextLine();
             Scanner sc = new Scanner(line);
@@ -196,25 +200,98 @@ public class MachineLearning {
             }
 
         }
-        System.out.println(length);
-        System.out.println("each num"+eachnum);
 
-        ///First assign an array to store the cluster centers
-        double [] storeArr = new double[k];
-        ///Assign k random numbers for k cluster centers. find the index of
-        for(int p=0; p<k; p++){
-            int randomCluster =(int)(Math.random()*length);
-            randomCluster = randomCluster*2+1;
-            ///Now we just have the index of the cluster centers.
-            storeArr[p]=randomCluster;
+
+        /////I. Assign initial centroids
+        double [] clusterPoints = new double [k*2];
+        for(int i=0; i<k*2-1; i++){
+            clusterPoints[i]=eachnum.get(length*(i+1)/k);
+            clusterPoints[i+1]=eachnum.get((length*(i+1)/k)+1);
+
         }
-        System.out.println(storeArr[0]);
-        System.out.println(storeArr[1]);
-        System.out.println(storeArr[2]);
-        ///Find the cluster centers and store in
+        Map<double[], Integer> firstItr = new HashMap <double[], Integer>();
+        ////II. Find the distance between each data point and the centroids and classify them
+        ArrayList<Double> Distlist = new ArrayList<Double>();
+        for(int i=0; i<length*2; i=i+2){
+            ///array of data point
+            double [] dataPoint = new double[2];
+            dataPoint[0]=eachnum.get(i);
+            dataPoint[1]=eachnum.get(i+1);
+            ///to this point we have the data point and we have to find the Euclidean distance
+            ///loop through the cluster points
+            for(int j=0; j<clusterPoints.length; j=j+2){
+                double [] clustSub = new double [2];
+                clustSub[0]=clusterPoints[j];
+                clustSub[1]=clusterPoints[j+1];
+                Distlist.add(EuclideanDist(dataPoint, clustSub));
+            }
+            int minIndex = Distlist.indexOf(Collections.min(Distlist));
+            Distlist.clear();
+            firstItr.put(dataPoint, minIndex);
+
+        }
+        double [] [] dataset = new double[eachnum.size()][2];
+        for(int i=0; i<eachnum.size(); i=i+2){
+            dataset[i][0]=eachnum.get(i);
+            dataset[i][1]=eachnum.get(i+1);
+        }
+        ///iterate through the firstItr map and find the centroid of each class again
+        for(int i=0; i<25; i++) {
+            double[][] cen = centroidFinder(firstItr, k);
+            firstItr = classifier(dataset, cen, k);
+        }
+        for(int j=0; j<k; j++) {
+            int sum=0;
+            for(Map.Entry<double[], Integer> i: firstItr.entrySet()){
+
+
+                if (i.getValue() == j){
+                    sum++;
+                }
+
+            }
+            System.out.println("There are "+sum+" numbers in this cluster");
+        }
 
 
 
+
+    }
+    public static double[][] centroidFinder(Map<double [], Integer> datapoints, int k){
+        double [][] store = new double [k][2];
+
+            for(int j=0; j<k; j++){
+                double sumx = 0;
+                double sumy = 0;
+                double sum = 0;
+                for(Map.Entry<double[], Integer> i: datapoints.entrySet()) {
+                    if (i.getValue() == j) {
+                        sumx = sumx + i.getKey()[0];
+                        sumy = sumy + i.getKey()[1];
+                        sum++;
+                    }
+                }
+                    double centroidx = sumx / sum;
+                    double centroidy = sumy / sum;
+                    store[j][0]=centroidx;
+                    store[j][1]=centroidy;
+            }
+
+        return store;
+
+    }
+    public static Map<double[], Integer> classifier (double[][] dataset, double[][] centroid, int k){
+        Map<double[], Integer> itr = new HashMap<double[], Integer>();
+        ArrayList<Double> DistList = new ArrayList<Double>();
+        for(int i=0; i<dataset.length; i=i+2){
+            for(int j=0; j<centroid.length; j++){
+                DistList.add(EuclideanDist(dataset[i], centroid[j]));
+            }
+            int c = DistList.indexOf(Collections.min(DistList));
+            DistList.clear();
+            itr.put(dataset[i], c);
+        }
+        return itr;
     }
 
 }
