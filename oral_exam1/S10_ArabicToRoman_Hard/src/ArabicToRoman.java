@@ -7,61 +7,69 @@
  */
 
 ///Add GUI
-import org.w3c.dom.Text;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ArabicToRoman {
+public class ArabicToRoman extends JFrame{
+
+    public static void setUpProgram(){
+        ///Create a frame that contains two text fields for numbers to be converted
+        JFrame inputFrame= new JFrame("UI - number converter");
+        ///set the size of the frame
+        inputFrame.setSize(500,500);
+        ///specify that we want the program to close if the close button is pressed
+        inputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ///set the frame's background color
+        ///Note --> contentPane is the layer that we can add objects to
+        inputFrame.getContentPane().setBackground(Color.YELLOW);
+        ///set a new layout for the frame / Flow adds all objects in a row
+        inputFrame.setLayout(new FlowLayout());
+        ///define a Font for the program to be added to the text fields.
+        Font myFont = new Font("TimesRoman",2, 20);
+        ///add an image to the frame
+        inputFrame.add(new JLabel(new ImageIcon("download.png")));
+        ///add a label for description to the frame
+        inputFrame.add(new JLabel("<html>Hello, this program can convert Arabic numbers to Roman and Roman to Arabic<br/>" +
+                "Please enter a number in either format to get converted</html>"), BorderLayout.NORTH);
+        ///Define the two text fields
+        JTextField romanEnter = new JTextField("Roman");
+        JTextField arabicEnter = new JTextField("Arabic");
+        ///Use the define Font
+        romanEnter.setFont(myFont);
+        arabicEnter.setFont(myFont);
+        ///Add them to the contentPane
+        inputFrame.getContentPane().add(arabicEnter);
+        inputFrame.getContentPane().add(romanEnter);
+        ///Add action listener which performs the functions each time the enter key is pressed
+        romanEnter.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) throws NumberFormatException, NullPointerException{
+                String romanTe = romanEnter.getText();
+                arabicEnter.setText(null);
+                arabicEnter.setText(romanToArabic(romanTe));
+            }
+        });
+        arabicEnter.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) throws NumberFormatException, NullPointerException{
+                String arabTe = arabicEnter.getText();
+                romanEnter.setText(null);
+                romanEnter.setText(arabicToRoman(arabTe));
+            }
+        });
+
+        ///Make the frame with textfields and everything visible
+        inputFrame.setVisible(true);
+    }
+    public static void addTextFields(){
+
+    }
     //main class
 public static void main(String[] args){
-    ///Create a frame that contains two text fields for numbers to be converted
-    JFrame inputFrame= new JFrame("UI - number converter");
-    ///set the size of the frame
-    inputFrame.setSize(500,500);
-    ///specify that we want the program to close if the close button is pressed
-    inputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    ///set the frame's background color
-    ///Note --> contentPane is the layer that we can add objects to
-    inputFrame.getContentPane().setBackground(Color.YELLOW);
-    ///set a new layout for the frame / Flow adds all objects in a row
-    inputFrame.setLayout(new FlowLayout());
-    ///define a Font for the program to be added to the text fields.
-    Font myFont = new Font("TimesRoman",2, 20);
-    ///add an image to the frame
-    inputFrame.add(new JLabel(new ImageIcon("download.png")));
-    ///add a label for description to the frame
-    inputFrame.add(new JLabel("<html>Hello, this program can convert Arabic numbers to Roman and Roman to Arabic<br/>" +
-            "Please enter a number in either format to get converted</html>"), BorderLayout.NORTH);
-    ///Define the two text fields
-    JTextField romanEnter = new JTextField("Roman");
-    JTextField arabicEnter = new JTextField("Arabic");
-    ///Use the define Font
-    romanEnter.setFont(myFont);
-    arabicEnter.setFont(myFont);
-    ///Add them to the contentPane
-    inputFrame.getContentPane().add(arabicEnter);
-    inputFrame.getContentPane().add(romanEnter);
-    ///Add action listener which performs the functions each time the enter key is pressed
-    romanEnter.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent e) throws NumberFormatException, NullPointerException{
-            String romanTe = romanEnter.getText();
-            arabicEnter.setText(null);
-            arabicEnter.setText(romanToArabic(romanTe));
-        }
-    });
-    arabicEnter.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent e) throws NumberFormatException, NullPointerException{
-            String arabTe = arabicEnter.getText();
-            romanEnter.setText(null);
-            romanEnter.setText(arabicToRoman(arabTe));
-        }
-    });
-
-    ///Make the frame with textfields and everything visible
-    inputFrame.setVisible(true);
+    setUpProgram();
 
 }
 /*
@@ -79,7 +87,10 @@ public static String arabicToRoman(String s) throws NullPointerException, Number
     if(Integer.parseInt(arabicNum)<0){
         romanNum="Your input is not valid, there are no negative Roman numbers.";
     }
-    ///otherwise, convert teh String to an integer
+    else if(!validateRomanNum(s)){
+        romanNum="Your input is not valid, you have violated the rules for a correct roman number.";
+    }
+    ///otherwise, convert the String to an integer
     else{
         ///Two arrays are used in this function. One contains the Arabic numbers and the other has equivalent
         ///Roman numbers
@@ -92,6 +103,9 @@ public static String arabicToRoman(String s) throws NullPointerException, Number
                 if (intArabicNum >= arabicRef[i]) {
                     romanNum = romanNum + romanEq[i];
                     intArabicNum -= arabicRef[i];
+                }
+                if(intArabicNum>=arabicRef[i]){
+                    i++;
                 }
             }
         }
@@ -119,26 +133,88 @@ public static String romanToArabic(String romanNum) throws NullPointerException{
     numbers.put('C', 100);
     numbers.put('D', 500);
     numbers.put('M', 1000);
-    ///The arabic number will be stored in the variable arabicNum which is initialized to zero
-    int arabicNum=0;
-    ///The function loops through the Roman number and evaluates every letter of the Roman number
-    for(int i=0; i<romanNum.length(); i++){
-        ///Check if the number entered is valid
+
+        ///The arabic number will be stored in the variable arabicNum which is initialized to zero
+        int arabicNum = 0;
+        ///The function loops through the Roman number and evaluates every letter of the Roman number
+        for (int i = 0; i < romanNum.length(); i++) {
+            ///Check if the number entered is valid
 //        if(i!=romanNum.length()-1 && numbers.get(romanNum.charAt(i)).equals(numbers.get(romanNum.charAt(i+1)))){
 //            System.out.println("Error not a valid number");
 //        }
-        ///If the character after the character is less, subtract otherwise add
-        if(i!=romanNum.length()-1 && numbers.get(romanNum.charAt(i))<numbers.get(romanNum.charAt(i+1))){
-            arabicNum-=numbers.get(romanNum.charAt(i));
+            ///If the character after the character is less, subtract otherwise add
+            if (i != romanNum.length() - 1 && numbers.get(romanNum.charAt(i)) < numbers.get(romanNum.charAt(i + 1))) {
+                arabicNum -= numbers.get(romanNum.charAt(i));
+            } else {
+                arabicNum += numbers.get(romanNum.charAt(i));
+            }
+
         }
-        else{
-            arabicNum+=numbers.get(romanNum.charAt(i));
+
+
+        return Integer.toString(arabicNum);
+
+
+
+}
+
+public static boolean validateRomanNum(String roman){
+    /*
+    "In order for a number written in Roman numerals to be considered valid there are three basic rules which must be followed.
+    I. Numerals must be arranged in descending order of size.
+    II. M, C, and X cannot be equalled or exceeded by smaller denominations.
+    III. D, L, and V can each only appear once."
+    SOURCE: https://projecteuler.net/about=roman_numerals
+    */
+    int valid=0;
+    int[] arabicRef = {1, 5, 10, 50, 100, 500, 1000};
+    String[] romanEq = {"I", "V", "X", "L", "C", "D", "M"};
+    String[] romanEqExtended = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
+
+    ///rule #1
+    int check1=0;
+    ///go through the roman number and check if each character is higher than the one after it, unless in the romanEqExtended list.
+    for(int i=0; i<roman.length()-1; i++){
+        if(roman.charAt(i)<roman.charAt(i+1)){
+            check1--;
+            String subroman1 = String.valueOf(roman.charAt(i));
+            String subroman2 = String.valueOf(roman.charAt(i+1));
+            String subroman = subroman1 + subroman2;
+            for(int j=0; j<romanEqExtended.length; j++){
+                if(romanEqExtended[j].equals(subroman)){
+                    check1++;
+                }
+            }
         }
 
     }
+    if(check1<0){
+        valid--;
+    }
+
+    ///rule #2
 
 
-    return Integer.toString(arabicNum);
+
+    ///rule #3
+    int check=0;
+    for(int i=0; i<roman.length(); i++){
+        if(roman.charAt(i)=='D'||roman.charAt(i)=='L'||roman.charAt(i)=='V'){
+            check++;
+        }
+    }
+    if(check>1){
+        valid--;
+    }
+    /////////////return
+    if(valid<0){
+        return false;
+    }
+    else{
+        return true;
+    }
+
 }
+
 
 }
