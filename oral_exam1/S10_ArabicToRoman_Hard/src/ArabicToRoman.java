@@ -64,9 +64,6 @@ public class ArabicToRoman extends JFrame{
         ///Make the frame with textfields and everything visible
         inputFrame.setVisible(true);
     }
-    public static void addTextFields(){
-
-    }
     //main class
 public static void main(String[] args){
     setUpProgram();
@@ -86,9 +83,6 @@ public static String arabicToRoman(String s) throws NullPointerException, Number
     String romanNum="";
     if(Integer.parseInt(arabicNum)<0){
         romanNum="Your input is not valid, there are no negative Roman numbers.";
-    }
-    else if(!validateRomanNum(s)){
-        romanNum="Your input is not valid, you have violated the rules for a correct roman number.";
     }
     ///otherwise, convert the String to an integer
     else{
@@ -125,23 +119,24 @@ function output:String - Arabic number
 public static String romanToArabic(String romanNum) throws NullPointerException{
     ///A map relates the reference Roman numbers to Arabic numbers. This way every digit in the Roman number can be
     ///easily converted to an integer
-    Map <Character, Integer> numbers = new HashMap<Character, Integer>();
-    numbers.put('I', 1);
-    numbers.put('V', 5);
-    numbers.put('X', 10);
-    numbers.put('L', 50);
-    numbers.put('C', 100);
-    numbers.put('D', 500);
-    numbers.put('M', 1000);
+    if(!validateRomanNum(romanNum)){
+       return "Invalid input, Roman number rules violated";
+    }
+    else {
+        Map<Character, Integer> numbers = new HashMap<Character, Integer>();
+        numbers.put('I', 1);
+        numbers.put('V', 5);
+        numbers.put('X', 10);
+        numbers.put('L', 50);
+        numbers.put('C', 100);
+        numbers.put('D', 500);
+        numbers.put('M', 1000);
 
         ///The arabic number will be stored in the variable arabicNum which is initialized to zero
         int arabicNum = 0;
         ///The function loops through the Roman number and evaluates every letter of the Roman number
         for (int i = 0; i < romanNum.length(); i++) {
             ///Check if the number entered is valid
-//        if(i!=romanNum.length()-1 && numbers.get(romanNum.charAt(i)).equals(numbers.get(romanNum.charAt(i+1)))){
-//            System.out.println("Error not a valid number");
-//        }
             ///If the character after the character is less, subtract otherwise add
             if (i != romanNum.length() - 1 && numbers.get(romanNum.charAt(i)) < numbers.get(romanNum.charAt(i + 1))) {
                 arabicNum -= numbers.get(romanNum.charAt(i));
@@ -153,7 +148,7 @@ public static String romanToArabic(String romanNum) throws NullPointerException{
 
 
         return Integer.toString(arabicNum);
-
+    }
 
 
 }
@@ -174,29 +169,26 @@ public static boolean validateRomanNum(String roman){
     ///rule #1
     int check1=0;
     ///go through the roman number and check if each character is higher than the one after it, unless in the romanEqExtended list.
-    for(int i=0; i<roman.length()-1; i++){
-        if(roman.charAt(i)<roman.charAt(i+1)){
-            check1--;
-            String subroman1 = String.valueOf(roman.charAt(i));
-            String subroman2 = String.valueOf(roman.charAt(i+1));
-            String subroman = subroman1 + subroman2;
-            for(int j=0; j<romanEqExtended.length; j++){
-                if(romanEqExtended[j].equals(subroman)){
-                    check1++;
-                }
-            }
-        }
 
-    }
     if(check1<0){
         valid--;
     }
 
-    ///rule #2
+    ///rule #2: X, I and C should not be repeated more than three times in a row.
+    for(int i=0; i<roman.length()-3; i++){
+        if(roman.charAt(i)=='I'&&roman.charAt(i+1)=='I'&&roman.charAt(i+2)=='I'&&roman.charAt(i+3)=='I'){
+            valid--;
+        }
+        else if(roman.charAt(i)=='X'&&roman.charAt(i+1)=='X'&&roman.charAt(i+2)=='X'&&roman.charAt(i+3)=='X'){
+            valid--;
+        }
+        else if(roman.charAt(i)=='C'&&roman.charAt(i+1)=='X'&&roman.charAt(i+2)=='X'&&roman.charAt(i+3)=='X'){
+            valid--;
+        }
+    }
 
 
-
-    ///rule #3
+    ///rule #3 : Symbols V, D and L should not appear more than once
     int check=0;
     for(int i=0; i<roman.length(); i++){
         if(roman.charAt(i)=='D'||roman.charAt(i)=='L'||roman.charAt(i)=='V'){

@@ -60,7 +60,10 @@
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/MVCCalculatorExamples.iml" filepath="$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/MVCCalculatorExamples.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S10_ArabicToRoman_Hard/S10_ArabicToRoman_Hard.iml" filepath="$PROJECT_DIR$/oral_exam1/S10_ArabicToRoman_Hard/S10_ArabicToRoman_Hard.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard.iml" filepath="$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard1.iml" filepath="$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard1.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S27_MachineLearning_Hard/S27_MachineLearning_Hard.iml" filepath="$PROJECT_DIR$/oral_exam1/S27_MachineLearning_Hard/S27_MachineLearning_Hard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam1/S31_RequestInheritance_Medium/S31_RequestInheritance_Medium.iml" filepath="$PROJECT_DIR$/oral_exam1/S31_RequestInheritance_Medium/S31_RequestInheritance_Medium.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam1/S4_ChangeComputation_Easy/S4_ChangeComputation_Easy.iml" filepath="$PROJECT_DIR$/oral_exam1/S4_ChangeComputation_Easy/S4_ChangeComputation_Easy.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch15/SerializationApps/SerializationApps.iml" filepath="$PROJECT_DIR$/textbook_examples/ch15/SerializationApps/SerializationApps.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/supplemental/SupermarketSimulation/SupermarketSimulation.iml" filepath="$PROJECT_DIR$/textbook_examples/supplemental/SupermarketSimulation/SupermarketSimulation.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch15/TextFileApps/TextFileApps.iml" filepath="$PROJECT_DIR$/textbook_examples/ch15/TextFileApps/TextFileApps.iml" />
