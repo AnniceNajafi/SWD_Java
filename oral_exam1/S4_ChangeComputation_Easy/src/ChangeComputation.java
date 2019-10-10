@@ -20,7 +20,7 @@ public class ChangeComputation {
     /*
      * constructor
      */
-    private ChangeComputation(){
+    public ChangeComputation(){
         priceOfItem=0;
         amountPaid=0;
     }
@@ -107,10 +107,5 @@ public class ChangeComputation {
 
     }
 
-    public static void main(String[] args) {
-        ChangeComputation superMarket = new ChangeComputation();
-        superMarket.setPriceOfItem();
-        superMarket.setAmountPaid();
-        superMarket.change();
-    }
+
 }
