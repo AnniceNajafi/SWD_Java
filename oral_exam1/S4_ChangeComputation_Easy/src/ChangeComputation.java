@@ -1,21 +1,52 @@
-/**
-@Author: Annice Najafi
-Program Name: S4_ChangeComputation
-
-ECE:3330
-Fall 2019
-*/
 
 //scanner class is used in order to get an input from the user.
 import java.util.Scanner;
+/**
+ @Author Annice Najafi
+ Program Name: S4_ChangeComputation
+ Level Of Difficulty: Easy
+--------------------
+ ECE:3330
+ Fall 2019
+ */
 
 public class ChangeComputation {
-    public static void superMarketSimulation(){
+    /*
+     *instance variables: private - access via get, set methods
+     */
+    private static double priceOfItem;
+    private static double amountPaid;
+
+    /*
+     * constructor
+     */
+    private ChangeComputation(){
+        priceOfItem=0;
+        amountPaid=0;
+    }
+
+    /**
+     * sets the value of the private variable PriceOfItem to the double input by the user
+     */
+    public void setPriceOfItem(){
         Scanner itemPriceSc = new Scanner(System.in);
         System.out.println("Please enter the price of the item");
-        Double itemPrice = itemPriceSc.nextDouble();
-        System.out.println("item price is :"+itemPrice);
-        /////
+        priceOfItem = itemPriceSc.nextDouble();
+        System.out.println("item price is :"+priceOfItem);
+    }
+
+    /**
+     * returns the value of the price of the item stored in the class
+     * @return double the value of the price of the item stored in the class
+     */
+    public double getPriceOfItem(){
+        return priceOfItem;
+    }
+
+    /**
+     * sets the instance variable, amountPaid to the input by the user
+     */
+    public void setAmountPaid(){
         Scanner customerPaidSc = new Scanner(System.in);
         System.out.println("Please enter the amount the customer paid in the following format: 20 dollar bills 10 dollar bills \n" +
                 "5 dollar bills 1 dollar bill Quarters Dimes Nickels Pennies");
@@ -33,17 +64,23 @@ public class ChangeComputation {
                 +customerPaidTenBills+ " Ten dollar bills "+ customerPaidFiveBills+" Five dollar bills "+customerPaidOneBills+"\n" +
                 " One dollar bills "+customerPaidQuarters+" Quarters "+customerPaidDimes+" Dimes "+customerPaidNickels+" Nickels\n" +
                 customerPaidPennies+" Pennies which is equal to: " +sumPaid);
-        change(sumPaid, itemPrice);
-
-
+        amountPaid=sumPaid;
     }
-    ///Function name: change
-    ///function: prints the amount of change in dollars to the console
-    ///input: double - amount of money paid in dollars/ price of the item in dollars
-    ///output: void no output - amount of change in dollars is printed to the screen
-    public static void change (double sumPaid, double itemPrice){
+
+    /**
+     * returns the amount paid stored in the class
+     * @return double the amount paid stored in the class
+     */
+    public double getAmountPaid(){
+        return amountPaid;
+    }
+
+    /**
+     * calculates the change
+     */
+    public void change(){
 ////////Calculate the change////////
-        double crudeChange = sumPaid - itemPrice;
+        double crudeChange = amountPaid - priceOfItem;
         if(crudeChange<0){
             System.out.println("Failure. The price of the item is more than the amount paid");
 
@@ -69,7 +106,11 @@ public class ChangeComputation {
 
 
     }
-    public static void main(String args[]) {
-        superMarketSimulation();
+
+    public static void main(String[] args) {
+        ChangeComputation superMarket = new ChangeComputation();
+        superMarket.setPriceOfItem();
+        superMarket.setAmountPaid();
+        superMarket.change();
     }
 }
