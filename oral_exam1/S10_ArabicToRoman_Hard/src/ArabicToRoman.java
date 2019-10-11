@@ -1,10 +1,3 @@
-/**
- * @author Annice Najafi
- * Date: 9/27/2019
- * LevelOfDifficulty: HARD
- * description: This program has two textfields which can receive a number in Roman and show the equivalent Arabic number
- * or vice versa.
- */
 
 ///Add GUI
 
@@ -14,6 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * @author Annice Najafi
+ * Date: 9/27/2019
+ * LevelOfDifficulty: HARD
+ * description: This program has two textfields which can receive a number in Roman and show the equivalent Arabic number
+ * or vice versa.
+ */
 
 public class ArabicToRoman extends JFrame{
     //instance variables
