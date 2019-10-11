@@ -1,5 +1,5 @@
 /**
-@Author: Annice Najafi
+@author: Annice Najafi
 Date: 10 September 2019
 Name: S27_Machine_learning
 Level of Difficulty: Hard
@@ -30,7 +30,12 @@ public class MachineLearning {
 
     }
 
-
+    /**
+     * Returns the cosine of the angle between two vectors
+     * @param arr1 First array of values of type double / vector 1
+     * @param arr2 Second array of values of type double / vector 2
+     * @return double - cosine of the angle between two vectors
+     */
     ///Method #1: Cosine similarity
     static double cosineSim(double[] arr1, double[] arr2) {
         if (arr1.length != arr2.length) {
@@ -51,6 +56,12 @@ public class MachineLearning {
 
     }
 
+    /**
+     * Returns the Hamming distance if given two words or numbers as String / Hamming dist is the difference of the number of letters of two words
+     * @param str1 String - the first word
+     * @param str2 String - the second word
+     * @return int - the number of different letters
+     */
     ///Method #2: Hamming distance
     static int HammingDist(String str1, String str2) {
         if (str1.length() != str2.length()) {
@@ -67,6 +78,12 @@ public class MachineLearning {
         }
     }
 
+    /**
+     * Returns the Euclidean Distance given two vectors as arrays
+     * @param arr1 double array / First vector
+     * @param arr2 double array / Second vector
+     * @return the Euclidean distance between two vectors
+     */
     ///Method #3: Euclidean Distance
     static double EuclideanDist(double[] arr1, double[] arr2) {
         if (arr1.length != arr2.length) {
@@ -82,8 +99,16 @@ public class MachineLearning {
         }
     }
 
+    /**
+     * This method receives a file with datasets with five features each belonging to a class either class 1 or class 2. If given a new dataset it can classify
+     * that as belonging to class 1 or class 2 based on the k nearest neighbors
+     * @param str - the path of the file passed to the method as a String
+     * @param arr - the new dataset consisting of five features
+     * @param k - number of nearest neighbors to be evaluated
+     * @return String - class 1 or class 2
+     * @throws IOException - if file could not be opened
+     */
     ////The medium part - k-nearest algorithm
-
     public static String knearest(String str, double[] arr, int k) throws IOException {
         ///First Read in the file
         File myFile = new File(str);
@@ -123,9 +148,6 @@ public class MachineLearning {
             }
             Distlist.add(EuclideanDist(storeArray, arr));
         }
-//        System.out.println(Distlist.size());
-//        System.out.println(stringList.size());
-//        System.out.println(Distlist);
         ///Now at this point, we should find the k nearest neighbors by finding the ones with the lowest Euclidean distance
         System.out.println(Distlist);
         String[] finalStore = new String[k];
@@ -166,6 +188,15 @@ public class MachineLearning {
 
     }
 
+    /**
+     * This method first defines k random numbers as centroids of k clusters then finds the Euclidean distance between each datapoint and
+     * each centroid, the one closest to the dataset gets classified as belonging to that cluster then it finds the centroids of those clusters again
+     * and reclassifies the clusters again and again.
+     * @param str - The path of the file containing datasets as a String
+     * @param k - the K clusters
+     * @return String the clusters and the number of datasets in each cluster
+     * @throws IOException - if could not open file
+     */
     ///The Hard Part
     ///K-means clustering algorithm
     ///Based on file of data points with two features.
@@ -231,7 +262,7 @@ public class MachineLearning {
         ///iterate through the firstItr map and find the centroid of each class again
         for (int i = 0; i < 25; i++) {
             double[][] cen = centroidFinder(firstItr, k);
-            firstItr = classifier(dataset, cen, k);
+            firstItr = classifier(dataset, cen);
         }
         String result = "";
         for (int j = 0; j < k; j++) {
@@ -252,14 +283,22 @@ public class MachineLearning {
 
     }
 
+    /**
+     * Finds the centroid of a cluster if given clusters
+     * @param datapoints as Map of double arrays relating to a cluster
+     * @param k : number of clusters
+     * @return
+     */
 
-    public static double[][] centroidFinder(Map<double [], Integer> datapoints, int k){
+    private static double[][] centroidFinder(Map<double [], Integer> datapoints, int k){
+        ///instantiate a double matrix
         double [][] store = new double [k][2];
-
+            ///for each cluster
             for(int j=0; j<k; j++){
                 double sumx = 0;
                 double sumy = 0;
                 double sum = 0;
+                ///find the centroid which is basically the mean of each paramter
                 for(Map.Entry<double[], Integer> i: datapoints.entrySet()) {
                     if (i.getValue() == j) {
                         sumx = sumx + i.getKey()[0];
@@ -276,9 +315,18 @@ public class MachineLearning {
         return store;
 
     }
-    public static Map<double[], Integer> classifier (double[][] dataset, double[][] centroid, int k){
+
+    /**
+     * classifer method classifies datasets based on centroids given
+     * @param dataset double matrix - matrix of datasets given ready to be classified
+     * @param centroid double matrix - centroids
+     * @return A map that relates datasets to an int which is the number of cluster
+     */
+    private static Map<double[], Integer> classifier (double[][] dataset, double[][] centroid){
+        ///Create a map
         Map<double[], Integer> itr = new HashMap<double[], Integer>();
         ArrayList<Double> DistList = new ArrayList<Double>();
+        ///find the Euclidean Distance and classify as that cluster if the Euclidean distance is the smallest
         for(int i=0; i<dataset.length; i=i+2){
             for(int j=0; j<centroid.length; j++){
                 DistList.add(EuclideanDist(dataset[i], centroid[j]));
