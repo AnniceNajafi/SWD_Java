@@ -1,8 +1,6 @@
 import org.junit.Test;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 public class ArabicToRomanTest {
@@ -22,5 +20,13 @@ public class ArabicToRomanTest {
         assertEquals("750", test2.romanToArabic("DCCL"));
         assertEquals("3303", test2.romanToArabic("MMMCCCIII"));
 
+    }
+    @Test
+    public void test3(){
+        ArabicToRoman test3 = new ArabicToRoman();
+        assertEquals("Invalid input, Roman number rules violated", test3.romanToArabic("IIX"));
+        assertEquals("Invalid input, Roman number rules violated", test3.romanToArabic("XXXXX"));
+        assertEquals("Invalid input, Roman number rules violated", test3.romanToArabic("MLL"));
+        assertEquals("Invalid input, Roman number rules violated", test3.romanToArabic("CCM"));
     }
 }

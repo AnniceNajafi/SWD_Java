@@ -2,7 +2,7 @@
 //scanner class is used in order to get an input from the user.
 import java.util.Scanner;
 /**
- @Author Annice Najafi
+ @author Annice Najafi
  Program Name: S4_ChangeComputation
  Level Of Difficulty: Easy
 --------------------
@@ -106,6 +106,7 @@ public class ChangeComputation {
 
 
     }
-
+    public static void main(String[] args) {
+    }
 
 }

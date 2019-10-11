@@ -4,7 +4,7 @@
     <option name="languageLevel" value="ES6" />
   </component>
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/oral_exam1/S10_ArabicToRoman_Hard/doc" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/oral_exam1/S4_ChangeComputation_Easy/doc" />
     <option name="OPTION_SCOPE" value="private" />
     <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
   </component>

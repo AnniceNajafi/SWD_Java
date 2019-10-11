@@ -1,6 +1,6 @@
 public class ConverterDriver {
     public static void main(String args[]){
-
-        ArabicToRoman.setUpProgram();
+        ArabicToRoman program = new ArabicToRoman();
+        program.setUpProgram();
     }
 }
