@@ -8,7 +8,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +19,7 @@ import java.util.*;
 import java.util.Timer;
 
 /**
- * @author: Annice Najafi
+ * @author Annice Najafi
  * Date: 9/29/2019
  * LevelOfDifficulty: HARD
  * description: This program
@@ -54,7 +53,9 @@ public class ImageRotator extends JFrame{
 
     /**
      * Adds the image and the related buttons to the frame
-     * @throws  IOException
+     * @throws IOException if file could not be read
+     * @throws LineUnavailableException if line was not available
+     * @throws UnsupportedAudioFileException for the audio files if the format was unsupported
      */
     public void setupImageRotator() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         ///At this point we need to add the spinning wheel and define a function that repaints the wheel in the frame
@@ -212,7 +213,7 @@ public class ImageRotator extends JFrame{
      * @param g - graphics g
      * @param image - the loaded image to be rotated
      * @param x double - the degrees to rotate
-     * @throws IOException
+     * @throws IOException if path was not valid
      */
     private static void Paint(Graphics g, BufferedImage image, double x) throws IOException {
         //AffineTransform is basically a matrix multiplication which can be used to rotate an image because it
