@@ -1,3 +1,6 @@
+/**
+@author Annice Najafi
+ */
 package RequestInheritance;
 
 import java.util.Random;
@@ -6,7 +9,7 @@ import java.util.Stack;
 public class Server {
     private static final Integer NUM_REQ_TYPES = 9;
 
-    public static void main(String argv[]) {
+    public static void main(String args[]) {
         Stack<Request> requestStack = new Stack<>();
         Random random = new Random();
         DataGenerator data = new DataGenerator();
