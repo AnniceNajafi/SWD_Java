@@ -6,6 +6,7 @@ import java.util.UUID;
 
 class DataGenerator {
     // fields to hold example data
+
     private Random rand;
     private String[] names;
     private String[] encryption;

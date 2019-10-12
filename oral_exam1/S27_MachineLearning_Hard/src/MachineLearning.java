@@ -37,7 +37,7 @@ public class MachineLearning {
      * @return double - cosine of the angle between two vectors
      */
     ///Method #1: Cosine similarity
-    static double cosineSim(double[] arr1, double[] arr2) {
+    public static double cosineSim(double[] arr1, double[] arr2) {
         if (arr1.length != arr2.length) {
             System.out.println("Error, undefined");
             return 0;
@@ -63,7 +63,7 @@ public class MachineLearning {
      * @return int - the number of different letters
      */
     ///Method #2: Hamming distance
-    static int HammingDist(String str1, String str2) {
+    public static int HammingDist(String str1, String str2) {
         if (str1.length() != str2.length()) {
             System.out.println("Error, the strings are not equal in size");
             return 0;
@@ -85,7 +85,7 @@ public class MachineLearning {
      * @return the Euclidean distance between two vectors
      */
     ///Method #3: Euclidean Distance
-    static double EuclideanDist(double[] arr1, double[] arr2) {
+    public static double EuclideanDist(double[] arr1, double[] arr2) {
         if (arr1.length != arr2.length) {
             System.out.println("Error, undefined");
             return 0;

@@ -1,50 +1,73 @@
-/**
- * @Aurthor: Annice Najafi
- * @Date: 9/29/2019
- * LevelOfDifficulty: HARD
- * description: This program
- */
+
 ///Add GUI
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.Timer;
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * @author: Annice Najafi
+ * Date: 9/29/2019
+ * LevelOfDifficulty: HARD
+ * description: This program
+ */
 
 public class ImageRotator extends JFrame{
-    static boolean stopspin;
-    static int i=0;
-    static Timer timer;// = new Timer();
 
-    public static void setupImageRotator(){
-        stopspin=true;
+    private static int i=0;
+    private static Timer timer;
+    private static JFrame spinWheel;
+    private static Clip clip;
+    private static int speed;
+    private static boolean stopme;
+    /**
+     * constructor
+     */
+    public ImageRotator() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         ///Create a frame that contains the spinning wheel
-        JFrame spinWheel = new JFrame("Spinning Wheel");
-        BufferedImage wheel = LoadImage("wheel2.png");
+        spinWheel = new JFrame("Spinning Wheel");
         spinWheel.setSize(1000,1000);
         spinWheel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         spinWheel.setLayout(new FlowLayout());
         spinWheel.getContentPane().setBackground(Color.pink);
+
         ///VOICE FILES
-        File voice1 = new File("src/voice1.wav");
+        File voice1 = new File("voice1.wav");
+        clip = AudioSystem.getClip();
+        clip.open(AudioSystem.getAudioInputStream(voice1));
+
+    }
+
+    /**
+     * Adds the image and the related buttons to the frame
+     * @throws  IOException
+     */
+    public void setupImageRotator() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         ///At this point we need to add the spinning wheel and define a function that repaints the wheel in the frame
         // each time it rotates.
-        /**
+        File JokerLaugh =new File("427574__brainclaim__joker-laugh-1.wav");
+        Clip clip1;
+        clip1 = AudioSystem.getClip();
+        clip1.open(AudioSystem.getAudioInputStream(JokerLaugh));
+        clip1.start();
+        JLabel here = new JLabel("↓");
+        spinWheel.add(here);
+        BufferedImage wheel = LoadImage("wheel2.png");
+        /*
          * First part: rotate by degrees specified by the user
          */
         JTextField receive = new JTextField("Rotate by degrees");
@@ -58,7 +81,7 @@ public class ImageRotator extends JFrame{
                 }
             }
         });
-        /**
+        /*
          * Second part: rotate the wheel by random degrees
          */
         spinWheel.getContentPane().add(receive);
@@ -87,58 +110,72 @@ public class ImageRotator extends JFrame{
                 }
             }
         });
-        /**
+        /*
          * Third part: spin dynamically
          */
-        JSlider speedSlider = new JSlider(5,100);
-        spinWheel.getContentPane().add(speedSlider);
-
-        JButton start = new JButton("Start");
-        int speed=speedSlider.getValue();
-        start.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-                spinWheel.getContentPane().setBackground(Color.YELLOW);
-                timer=new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    public void run() {
-                        try {
-                            PlaySound(voice1);
-                            Paint(spinWheel.getGraphics(), wheel, i++);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 1, speed);
-            }
-
-        });
-        /**
-         * STOP BUTTON _____________
-         */
+        //////STOP BUTTON
         JButton stop = new JButton("Stop");
 
         stop.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                stopme = true;
                 spinWheel.getContentPane().setBackground(Color.PINK);
-                speedSlider.setValue(0);
-                timer.cancel();
-
             }
         });
         spinWheel.getContentPane().add(stop);
+        //////START BUTTON
+        JButton start = new JButton("Start");
 
+        start.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                stopme = false;
+            }
+        });
         spinWheel.getContentPane().add(start);
+        //////THE SLIDER
+        JSlider speedSlider = new JSlider(10,1000, 50);
+        speedSlider.setMajorTickSpacing(10);
+        speedSlider.setPaintTicks(true);
+        speedSlider.addChangeListener(new ChangeListener(){
+            public void stateChanged(ChangeEvent e){
+                        timer = new Timer();
+                        speed = speedSlider.getValue();
+                        spinWheel.getContentPane().setBackground(Color.YELLOW);
+                        timer.scheduleAtFixedRate(new TimerTask() {
+                            public void run() {
+                                try {
+                                    if(!stopme) {
+                                        Paint(spinWheel.getGraphics(), wheel, i++);
+                                        clip.start();
+                                        clip.loop(Clip.LOOP_CONTINUOUSLY);
+                                    }
+                                    else if(stopme){
+                                        timer.cancel();
+                                        clip.stop();
+                                        clip.loop(0);
+                                    }
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 100, speed);
+            }
+        });
+        spinWheel.getContentPane().add(speedSlider);
 
 
-        /**
+
+
+
+        /*
          *Add a start frame to show before the main spinning wheel frame
          * START FRAME
          */
         JFrame startFrame = new JFrame("Welcome");
         startFrame.setLayout(new FlowLayout());
         startFrame.setSize(1000, 1000);
-        startFrame.add(new JLabel(new ImageIcon("src/Joker.jpg")));
+        startFrame.add(new JLabel(new ImageIcon("Joker.jpg")));
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startFrame.getContentPane().setBackground(Color.ORANGE);
         startFrame.add(new JLabel("Welcome, click this button to start spinning"));
@@ -155,49 +192,57 @@ public class ImageRotator extends JFrame{
     }
 
     public static void main(String[] args) throws IOException, UnsupportedAudioFileException {
-        setupImageRotator();
+
     }
 
-
-    static BufferedImage LoadImage(String FileName){
+    /**
+     * Loads an image and stores it as a buffered image
+     * @param FileName - receives the file path as a String
+     * @return returns a BufferedImage
+     * @throws IOException if path not found
+     */
+    private static BufferedImage LoadImage(String FileName) throws IOException{
         BufferedImage imageToLoad = null;
-        try {
             imageToLoad = ImageIO.read(new File(FileName));
-        }catch(IOException e){
-            System.out.println("Cannot load image");
-        }
         return imageToLoad;
     }
 
-
-    public static void Paint(Graphics g, BufferedImage image, double x) throws IOException {
-
+    /**
+     * rotates an image by x degrees and draws it to the screen
+     * @param g - graphics g
+     * @param image - the loaded image to be rotated
+     * @param x double - the degrees to rotate
+     * @throws IOException
+     */
+    private static void Paint(Graphics g, BufferedImage image, double x) throws IOException {
+        //AffineTransform is basically a matrix multiplication which can be used to rotate an image because it
+        //preserves the distance between points in the image
         AffineTransform at = AffineTransform.getTranslateInstance(100,100);
+        //rotate the affine transform by the degree x passed to the method
         at.rotate(Math.toRadians(x), image.getWidth()/2, image.getHeight()/2);
         ///create graphics 2d
+        // The Graphics2D class extends the Graphics class to provide more sophisticated control over geometry,
+        // coordinate transformations, color management,
+        // and text layout.
         Graphics2D g2d = (Graphics2D) g;
+        ///draw the graphics to the
         g2d.drawImage(image, at, null);
+        /*
+        NOTE --> see references for the reference code
+         */
     }
-    static void PlaySound(File sound){
-        try{
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(sound));
-            clip.start();
 
-//            Thread.sleep(clip.getMicrosecondLength()/1000);
-        }catch(Exception e){
-
-        }
-    }
 
 
 }
-/**
+/*
  *image reference:
  * https://wheel.fhtl.byu.edu/#/
  * https://www.pinterest.com/pin/35888128251108254/
  * credit given to:
  *  https://stackoverflow.com/questions/8639567/java-rotating-images
+ * All sound tracks reference:
+ * https://freesound.org
  * ---Fall 2019---
  * University of Iowa
  */
