@@ -1,5 +1,5 @@
 /**
-@author: Annice Najafi
+@author Annice Najafi
 Date: 10 September 2019
 Name: S27_Machine_learning
 Level of Difficulty: Hard
@@ -287,7 +287,7 @@ public class MachineLearning {
      * Finds the centroid of a cluster if given clusters
      * @param datapoints as Map of double arrays relating to a cluster
      * @param k : number of clusters
-     * @return
+     * @return the centroid of the clusters
      */
 
     private static double[][] centroidFinder(Map<double [], Integer> datapoints, int k){

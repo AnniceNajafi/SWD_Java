@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test File
- * @author: Annice Najafi
+ * @author Annice Najafi
  */
 public class MachineLearningTest {
     @Test
