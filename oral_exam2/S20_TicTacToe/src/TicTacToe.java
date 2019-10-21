@@ -59,16 +59,23 @@ public class TicTacToe {
 
     }
 
-    public void startGame(){
-        while(!(game.checkRows() == game.checkColumns() == game.checkDiagonal()) && game.PositionsEmpty()){
-            player1.makeMove();
-            player2.makeMove();
+    public void playGame(){
+        while(!(game.checkRows() == game.checkColumns() == game.checkDiagonal()) && game.PositionsEmpty()) {
+            char position1 = player1.makeMove();
+            game.fillPosition(position1, player1.PlayerChar);
+            game.printBoard();
+            char position2 = player2.makeMove();
+            game.fillPosition(position2, player2.PlayerChar);
+            game.printBoard();
+
         }
+
     }
 
 
 public static void main(String[] args){
         TicTacToe myGame = new TicTacToe();
         myGame.setUpPlayers();
+        myGame.playGame();
 }
 }

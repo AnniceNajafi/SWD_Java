@@ -1,6 +1,6 @@
 public class Player {
     protected boolean status;
-    char PlayerChar;
+    protected char PlayerChar;
     static protected int numPlayer;
     public Player(int numPlayer){
         if(numPlayer==1){
@@ -13,8 +13,8 @@ public class Player {
     public void setStatus(){
 
     }
-    public void makeMove(){
-
+    public char makeMove(){
+        return 0;
     }
 
 }

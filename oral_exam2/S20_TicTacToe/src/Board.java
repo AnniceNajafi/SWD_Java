@@ -30,21 +30,29 @@ public class Board {
         return sumPositions != 0;
     }
     public boolean checkPosition(int position){
-        Character store;
-        boolean position_bool=false;
-        for(Map.Entry<Character, Integer> entry : storePosition.entrySet()){
-            if(entry.getValue()==position){
-                store=entry.getKey();
-                for(Map.Entry<Character, Boolean> entryb : checkEmpty.entrySet()){
-                    if(entryb.getKey()==store){
-                        if(entryb.getValue()){
-                            position_bool=true;
-                        }
-                    }
+        int check=0;
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                if(board[i][j]==position){
+                    check++;
                 }
             }
         }
-        return position_bool;
+        if(check==0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public void fillPosition(char position, char specialCharacter){
+           for(int i=0; i<3; i++){
+               for(int j=0; j<3; j++){
+                   if(board[i][j]==position){
+                       board[i][j]=specialCharacter;
+                   }
+               }
+           }
     }
 
     public void printBoard(){

@@ -1,19 +1,19 @@
 public class ComputerPlayer extends Player {
     boolean smart;
+    Character signature;
     public ComputerPlayer(int numPlayer, boolean smart){
         super(numPlayer);
         this.smart=smart;
     }
-    public void checkStatus(){
-    }
+
     @Override
-    public void makeMove(){
+    public char makeMove(){
         if(smart){
 
         }
         else{
 
         }
-
+        return 0;
     }
 }
