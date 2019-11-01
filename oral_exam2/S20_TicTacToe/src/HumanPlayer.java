@@ -8,10 +8,11 @@ public HumanPlayer(int numPlayer){
 
 
     @Override
-    public char makeMove(){
+    public void makeMove(Board boardToPlay){
     System.out.println("Please enter position to fill");
     Scanner Sc = new Scanner(System.in);
-    return Sc.next().charAt(0);
+    char position = Sc.next().charAt(0);
+        boardToPlay.fillPosition(position, PlayerChar);
 
     }
 }

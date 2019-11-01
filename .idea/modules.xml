@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/14-23_MetricConversion_Medium/14-23_MetricConversion_Medium.iml" filepath="$PROJECT_DIR$/oral_exam2/14-23_MetricConversion_Medium/14-23_MetricConversion_Medium.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/20190904-Quiz/20190904-Quiz.iml" filepath="$PROJECT_DIR$/quizzes/20190904-Quiz/20190904-Quiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/20190920-Quiz.iml" filepath="$PROJECT_DIR$/quizzes/20190920-Quiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/20190923-Quiz/20190923-Quiz.iml" filepath="$PROJECT_DIR$/quizzes/20190923-Quiz/20190923-Quiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/20191002_QUIZ.iml" filepath="$PROJECT_DIR$/quizzes/20191002_QUIZ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quizzes/20191030-Quiz/20191030-Quiz.iml" filepath="$PROJECT_DIR$/quizzes/20191030-Quiz/20191030-Quiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/EXAMPLE_MVCCalculator1/EXAMPLE_MVCCalculator1.iml" filepath="$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/EXAMPLE_MVCCalculator1/EXAMPLE_MVCCalculator1.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/EXAMPLE_MVCCalculator2/EXAMPLE_MVCCalculator2.iml" filepath="$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/EXAMPLE_MVCCalculator2/EXAMPLE_MVCCalculator2.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/EXAMPLE_MVCCalculator3/EXAMPLE_MVCCalculator3.iml" filepath="$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/EXAMPLE_MVCCalculator3/EXAMPLE_MVCCalculator3.iml" />
@@ -59,7 +61,7 @@
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/supplemental/JUnitExample/JUnitExample.iml" filepath="$PROJECT_DIR$/textbook_examples/supplemental/JUnitExample/JUnitExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/MVCCalculatorExamples.iml" filepath="$PROJECT_DIR$/textbook_examples/MVCCalculatorExamples/MVCCalculatorExamples.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S10_ArabicToRoman_Hard/S10_ArabicToRoman_Hard.iml" filepath="$PROJECT_DIR$/oral_exam1/S10_ArabicToRoman_Hard/S10_ArabicToRoman_Hard.iml" />
-      <module fileurl="file://$PROJECT_DIR$/oral_exam2/S20_TicTacToe/S20_TicTacToe.iml" filepath="$PROJECT_DIR$/oral_exam2/S20_TicTacToe/S20_TicTacToe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/S20_TicTacToe/S20_TicTacToe_Hard.iml" filepath="$PROJECT_DIR$/oral_exam2/S20_TicTacToe/S20_TicTacToe_Hard.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard.iml" filepath="$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard1.iml" filepath="$PROJECT_DIR$/oral_exam1/S22_ImageRotator_Hard/S22_ImageRotator_Hard1.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/S27_MachineLearning_Hard/S27_MachineLearning_Hard.iml" filepath="$PROJECT_DIR$/oral_exam1/S27_MachineLearning_Hard/S27_MachineLearning_Hard.iml" />

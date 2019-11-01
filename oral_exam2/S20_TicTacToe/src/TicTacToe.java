@@ -7,11 +7,10 @@ import java.util.Scanner;
  */
 public class TicTacToe {
     private Board game;
-    private Player player1;
-    private Player player2;
+    private Player first;
+    private Player second;
     public TicTacToe(){
         game = new Board();
-        game.initializeBoard();
         game.printBoard();
     }
     public void setUpPlayers(){
@@ -20,37 +19,40 @@ public class TicTacToe {
         Scanner promptAnswer = new Scanner(System.in);
         String response=promptAnswer.next();
         if(response.equals("HC")){
-            player1 = new HumanPlayer(1);
+            first = new HumanPlayer(1);
             System.out.println("Please specify if you want the computer player dumb or smart");
             Scanner dumbOrSmart = new Scanner(System.in);
             String responseToDumb=dumbOrSmart.next();
             if(responseToDumb=="smart"){
-                player2 = new ComputerPlayer(2, true);
+                second = new ComputerPlayer(2, true);
+            }
+            else{
+                second = new ComputerPlayer(2, false);
             }
         }
         else if(response.equals("HH")){
-            player1 = new HumanPlayer(1);
-            player2 = new HumanPlayer(2);
+            first = new HumanPlayer(1);
+            second = new HumanPlayer(2);
 
         }else if(response.equals("CC")){
             System.out.println("Please specify if you want the computer player1 dumb or smart");
             Scanner dumbOrSmart1 = new Scanner(System.in);
             String responseToDumb1=dumbOrSmart1.next();
             if(responseToDumb1=="smart"){
-                player1 = new ComputerPlayer(2, true);
+                first = new ComputerPlayer(1, true);
             }
             else{
-                player1 = new ComputerPlayer(2, false);
+                first = new ComputerPlayer(1, false);
             }
 
             System.out.println("Please specify if you want the computer player2 dumb or smart");
             Scanner dumbOrSmart2 = new Scanner(System.in);
             String responseToDumb2=dumbOrSmart2.next();
             if(responseToDumb2=="smart"){
-                player2 = new ComputerPlayer(2, true);
+                second = new ComputerPlayer(2, true);
             }
             else{
-                player2 = new ComputerPlayer(2, false);
+                second = new ComputerPlayer(2, false);
             }
         }
         else{
@@ -58,24 +60,34 @@ public class TicTacToe {
         }
 
     }
-
-    public void playGame(){
+    public void playGame() throws InterruptedException {
         while(!(game.checkRows() == game.checkColumns() == game.checkDiagonal()) && game.PositionsEmpty()) {
-            char position1 = player1.makeMove();
-            game.fillPosition(position1, player1.PlayerChar);
+            first.makeMove(game);
             game.printBoard();
-            char position2 = player2.makeMove();
-            game.fillPosition(position2, player2.PlayerChar);
+            second.makeMove(game);
             game.printBoard();
 
         }
+        checkWinner();
 
+    }
+    public void checkWinner(){
+        if(game.PositionsEmpty()){
+            System.out.println("Game is a draw");
+        }
+        else{
+
+        }
     }
 
 
-public static void main(String[] args){
+
+
+
+    public static void main(String[] args) throws InterruptedException {
         TicTacToe myGame = new TicTacToe();
         myGame.setUpPlayers();
         myGame.playGame();
+
 }
 }

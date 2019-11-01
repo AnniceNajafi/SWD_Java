@@ -1,7 +1,5 @@
 public class Player {
-    protected boolean status;
     protected char PlayerChar;
-    static protected int numPlayer;
     public Player(int numPlayer){
         if(numPlayer==1){
             PlayerChar='X';
@@ -10,11 +8,8 @@ public class Player {
             PlayerChar='O';
         }
     }
-    public void setStatus(){
+    public void makeMove(Board board) throws InterruptedException {
 
-    }
-    public char makeMove(){
-        return 0;
     }
 
 }
