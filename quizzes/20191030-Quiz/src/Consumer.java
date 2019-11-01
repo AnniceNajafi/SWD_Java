@@ -1,6 +1,6 @@
 // Fig. 23.11: Consumer.java
 // Consumer with a run method that loops, reading 10 values from buffer.
-
+//
 import java.security.SecureRandom;
 
 public class Consumer implements Runnable {

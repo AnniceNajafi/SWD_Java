@@ -1,6 +1,6 @@
 // Fig. 23.14: BlockingBuffer.java
 // Creating a synchronized buffer using the ArrayBlockingQueue class.
-
+//
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class BlockingBuffer implements Buffer {
