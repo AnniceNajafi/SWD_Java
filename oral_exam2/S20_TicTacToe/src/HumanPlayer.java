@@ -1,10 +1,12 @@
 import java.util.Map;
 import java.util.Scanner;
 
-public class HumanPlayer extends Player {
-public HumanPlayer(int numPlayer){
-    super(numPlayer);
-}
+public class HumanPlayer implements Player {
+    Character PlayerChar;
+
+//public HumanPlayer(int numPlayer){
+//
+//}
 
 
     @Override

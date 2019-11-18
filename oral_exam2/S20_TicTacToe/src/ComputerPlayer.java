@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class ComputerPlayer extends Player {
+public class ComputerPlayer implements Player {
     boolean smart;
-    Character signature;
+
+    Character PlayerChar;
     public ComputerPlayer(int numPlayer, boolean smart){
-        super(numPlayer);
         this.smart=smart;
     }
 
