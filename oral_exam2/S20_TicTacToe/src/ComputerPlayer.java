@@ -5,6 +5,9 @@ public class ComputerPlayer implements Player {
 
     Character PlayerChar;
     public ComputerPlayer(int numPlayer, boolean smart){
+        if(numPlayer==1){
+            PlayerChar = 'X';
+        }else{PlayerChar ='O';}
         this.smart=smart;
     }
 
