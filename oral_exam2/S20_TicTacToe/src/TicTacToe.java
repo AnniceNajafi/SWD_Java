@@ -36,6 +36,7 @@ public class TicTacToe {
         System.out.println("Please pick two players, HH for two human players, HC for one human player and one computer player\n" +
                 "and CC for two computer players.");
         Scanner promptAnswer = new Scanner(System.in);
+
         String response=promptAnswer.next();
         if(response.equals("HC")){
             first = new HumanPlayer(1);
@@ -93,10 +94,13 @@ public class TicTacToe {
 
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         TicTacToe myGame = new TicTacToe();
         myGame.setUpPlayers();
-        myGame.playGame();
-
+        try {
+            myGame.playGame();
+        }catch(Exception e){
+            System.out.println("Error, cannot continue game");
+        }
 }
 }
