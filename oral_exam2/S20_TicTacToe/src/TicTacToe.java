@@ -6,13 +6,32 @@ import java.util.Scanner;
  * Level Of Difficulty: Hard
  */
 public class TicTacToe {
+    /**
+     * instance variable, game is an object of the Board class
+     */
     private Board game;
+    /**
+     * instance variable, first is the first Player
+     */
     private Player first;
+    /**
+     * instance variable, second is the second Player
+     */
     private Player second;
+
+    /**
+     * constructor, instantiates a new Board and prints it to the screen
+     */
     public TicTacToe(){
         game = new Board();
         game.printBoard();
     }
+
+    /**
+     * setUpPlayers method initializes the two players by asking the user
+     * HH for two human players, HC for one human player and one computer player and CC for two computer players
+     * function prints out "wrong request" if
+     */
     public void setUpPlayers(){
         System.out.println("Please pick two players, HH for two human players, HC for one human player and one computer player\n" +
                 "and CC for two computer players.");
@@ -20,65 +39,63 @@ public class TicTacToe {
         String response=promptAnswer.next();
         if(response.equals("HC")){
             first = new HumanPlayer(1);
-            System.out.println("Please specify if you want the computer player dumb or smart");
-            Scanner dumbOrSmart = new Scanner(System.in);
-            String responseToDumb=dumbOrSmart.next();
-            if(responseToDumb=="smart"){
-                second = new ComputerPlayer(2, true);
-            }
-            else{
-                second = new ComputerPlayer(2, false);
-            }
+            second = new ComputerPlayer(2);
+
         }
         else if(response.equals("HH")){
             first = new HumanPlayer(1);
             second = new HumanPlayer(2);
 
         }else if(response.equals("CC")){
-            System.out.println("Please specify if you want the computer player1 dumb or smart");
-            Scanner dumbOrSmart1 = new Scanner(System.in);
-            String responseToDumb1=dumbOrSmart1.next();
-            if(responseToDumb1=="smart"){
-                first = new ComputerPlayer(1, true);
-            }
-            else{
-                first = new ComputerPlayer(1, false);
-            }
-
-            System.out.println("Please specify if you want the computer player2 dumb or smart");
-            Scanner dumbOrSmart2 = new Scanner(System.in);
-            String responseToDumb2=dumbOrSmart2.next();
-            if(responseToDumb2=="smart"){
-                second = new ComputerPlayer(2, true);
-            }
-            else{
-                second = new ComputerPlayer(2, false);
-            }
+                first = new ComputerPlayer(1);
+                second = new ComputerPlayer(2);
         }
         else{
             System.out.println("wrong request");
         }
 
     }
-    public void playGame() throws InterruptedException {
-        while(!(game.checkRows() == game.checkColumns() == game.checkDiagonal()) && game.PositionsEmpty()) {
-            first.makeMove(game);
+
+    /**
+     * Function lets first player move and second player after that as long as game doesn't have a winner or
+     * is not a tie
+     * game catches interrupted thread exception
+     * no input, uses instance variables
+     * no output, changes board instance variable
+     */
+    public void playGame()  {
+        do {
+            if (game.checkRows() || game.checkColumns() || game.checkDiagonal() || !game.PositionsEmpty()) {
+                break;
+            }
+            try {
+                first.makeMove(game);
+            } catch (InterruptedException e) {
+                System.out.println("Error!, Thread interrupted");
+            }
             game.printBoard();
-            second.makeMove(game);
+            if (game.checkRows() || game.checkColumns() || game.checkDiagonal() || !game.PositionsEmpty()) {
+                break;
+            }
+            try {
+                second.makeMove(game);
+            } catch (InterruptedException e) {
+                System.out.println("Error!, Thread interrupted");
+            }
             game.printBoard();
 
+
+        }while(game.checkWinner()==null);
+        if(game.checkWinner()==first.getPlayerChar()){
+            System.out.println("First player won!");
+        }else if(game.checkWinner()==second.getPlayerChar()){
+            System.out.println("Second player won!");
+        }else{
+            System.out.println("Game is a tie!");
         }
-        checkWinner();
 
     }
-    public void checkWinner(){
-        if(game.PositionsEmpty()){
-            System.out.println("Game is a draw");
-        }
-        else{
 
-        }
-    }
 
 
 
