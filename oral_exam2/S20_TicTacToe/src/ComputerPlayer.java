@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 
-public class ComputerPlayer implements Player {
+public class ComputerPlayer extends Player {
     /**
      * instance variable Player Char contains the player's special character
      */
     private Character PlayerChar;
-
     /**
      * Constructor, creates a player with a certain character 'X' or 'O'
      * @param numPlayer : player number indicates which character is associated with player if 1--> X else O

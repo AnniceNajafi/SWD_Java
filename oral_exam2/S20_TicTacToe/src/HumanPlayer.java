@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class HumanPlayer implements Player {
+public class HumanPlayer  extends Player {
     /**
      * instance variable Player Char contains the player's special character
      */

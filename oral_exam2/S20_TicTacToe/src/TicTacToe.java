@@ -68,20 +68,12 @@ public class TicTacToe {
             if (game.checkRows() || game.checkColumns() || game.checkDiagonal() || !game.PositionsEmpty()) {
                 break;
             }
-            try {
-                first.makeMove(game);
-            } catch (InterruptedException e) {
-                System.out.println("Error!, Thread interrupted");
-            }
+            first.makeMove(game);
             game.printBoard();
             if (game.checkRows() || game.checkColumns() || game.checkDiagonal() || !game.PositionsEmpty()) {
                 break;
             }
-            try {
-                second.makeMove(game);
-            } catch (InterruptedException e) {
-                System.out.println("Error!, Thread interrupted");
-            }
+            second.makeMove(game);
             game.printBoard();
 
 

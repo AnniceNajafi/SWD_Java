@@ -1,4 +1,5 @@
-public interface Player {
+public abstract class Player {
+    
     /**
      * fills a position on the board given to the function
      * @param board, Board received as input
@@ -6,10 +7,5 @@ public interface Player {
      */
     public abstract void makeMove(Board board);
 
-    /**
-     * return the Player character
-     * no input
-     * @return the character of the player
-     */
-    public Character getPlayerChar();
+    public abstract Character getPlayerChar();
 }
