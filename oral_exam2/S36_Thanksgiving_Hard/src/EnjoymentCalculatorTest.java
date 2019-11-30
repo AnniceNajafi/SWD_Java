@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.Test;
-
-
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * tests based on text file provided
+ */
 public class EnjoymentCalculatorTest {
     @Test
     public void Test1(){
