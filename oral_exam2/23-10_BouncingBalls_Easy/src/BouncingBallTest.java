@@ -13,15 +13,23 @@ import java.util.concurrent.Executors;
  */
 public class BouncingBallTest {
     public static void main(String[] args) {
+        ///Define a frame for the JPanel to be placed in.
         JFrame place = new JFrame("Bouncing Ball");
+        ///set the size of the frame
         place.setSize(500,500);
+        ///make the frame close if the closed button is pressed
         place.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ///instantiate a bouncing ball object
         BouncingBall ball = new BouncingBall();
+        ///place the bouncing ball JPanel on the JFrame
         place.add(ball);
+        ///set the frame visible
         place.setVisible(true);
+        //add a mouse listener to the frame to make the ball move when the screen is pressed
         place.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                ///run the thread when pressed
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(ball);
             }
