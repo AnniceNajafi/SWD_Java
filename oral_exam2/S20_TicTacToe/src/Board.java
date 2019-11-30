@@ -8,7 +8,8 @@ public class Board {
     ///Map each position to a boolean that shows whether the position is empty or not.
     Map<Character, Boolean> checkEmpty =new HashMap<>();
     public Map<Character, Integer> storePosition = new HashMap<>();
-    ///Have two players as instance variables
+    ///Board Score to find a win, lose or tie
+    int BoardScore;
 
     Board(){
         board = new char[3][3];
@@ -107,6 +108,25 @@ public class Board {
         else{
             return false;
         }
+    }
+    public Character checkWinner(){
+        for(int i=0; i<3; i++){
+            if(board[0][i]==board[1][i] && board[1][i]==board[2][i]&&(board[0][i]=='X'||board[0][i]=='O')){
+                return board[0][i];
+            }
+        }
+        for(int i=0; i<3; i++){
+            if(board[i][0]==board[i][1] && board[i][1]==board[i][2]&&(board[i][0]=='X'||board[i][0]=='O')){
+                return board[i][0];
+            }
+        }
+        if(board[0][0]==board[1][1]&&board[1][1]==board[2][2]&&(board[0][0]=='X'||board[0][0]=='O')){
+            return board[0][0];
+        }
+        else if(board[0][2]==board[1][1]&&board[1][1]==board[2][0]&&(board[0][0]=='X'||board[0][0]=='O')){
+            return board[0][2];
+        }
+        return null;
     }
 
 

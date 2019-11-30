@@ -24,28 +24,26 @@ public class ComputerPlayer implements Player {
             avPositions.remove(0);
         }
         else{
-            if(boardToPlay.positionisEmpty('5')){
-                boardToPlay.fillPosition('5', PlayerChar);
+            ArrayList<Character> avPositions = new ArrayList<>();
+            Board sim = boardToPlay;
+            avPositions = sim.availablePositions();
+            while(avPositions.size()!=0){
+
             }
-            else if(boardToPlay.positionisEmpty('1')){
-                boardToPlay.fillPosition('1', PlayerChar);
-            }
-            else if(boardToPlay.positionisEmpty('3')){
-                boardToPlay.fillPosition('3', PlayerChar);
-            }
-            else if(boardToPlay.positionisEmpty('7')){
-                boardToPlay.fillPosition('7', PlayerChar);
-            }
-            else if(boardToPlay.positionisEmpty('9')){
-                boardToPlay.fillPosition('9', PlayerChar);
-            }
-            else{
-                ArrayList<Character> avPositions = new ArrayList<>();
-                avPositions = boardToPlay.availablePositions();
-                char toFill = avPositions.get(0);
-                boardToPlay.fillPosition(toFill, PlayerChar);
-                avPositions.remove(0);
-            }
+        }
+    }
+
+
+    public void minimax(Board boardToPlay) {
+        int result;
+        ArrayList<Character> avPositions = new ArrayList<>();
+        avPositions = boardToPlay.availablePositions();
+        if(boardToPlay.checkWinner()==PlayerChar){
+            result =10;
+        }else if(boardToPlay.checkWinner()==null){
+            result=0;
+        }else{
+            result= -10;
         }
     }
 }

@@ -1,21 +1,35 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 
 public class BouncingBall extends JPanel implements Runnable{
-    int x, y, dx, dy;
+    /**
+     * Instance variables x, y, dx, dy
+     * Type: int
+     * x and y store the position of the ball, dx and dy are the change in position in each axis
+     */
+    private int x, y, dx, dy;
+    /**
+     * panel_Width and panel_Height store store the size of the panel
+     */
     private static final int panel_WIDTH = 640;
     private static final int panel_HEIGHT = 480;
+
+    /**
+     * CONSTRUCTOR
+     * sets the initial position of the ball and the change in position
+     */
     public BouncingBall(){
         x=0;
         y=0;
         dx=1;
         dy=1;
     }
+
+    /**
+     *
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         super.paintComponents(g);
@@ -23,6 +37,10 @@ public class BouncingBall extends JPanel implements Runnable{
         g.setColor(Color.BLUE);
         g.fillOval(x,y,20,20);
     }
+
+    /**
+     *
+     */
     public void move() {
         if(x+dx<0){
             dx=1;
@@ -35,8 +53,11 @@ public class BouncingBall extends JPanel implements Runnable{
         }
           x=x+dx;
           y=y+dy;
-          repaint();
     }
+
+    /**
+     *
+     */
     @Override
     public void run(){
         while(true){

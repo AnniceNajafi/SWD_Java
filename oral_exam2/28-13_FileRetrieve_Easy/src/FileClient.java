@@ -1,15 +1,10 @@
-import sun.security.util.IOUtils;
-
 import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -18,18 +13,32 @@ import java.util.Scanner;
  */
 
 public class FileClient extends JFrame{
-    Socket client;
-    JTextField enter_file_name;
-    JEditorPane contents;
-    String fileText;
-    public FileClient() throws IOException {
+    /**
+     * instance variables
+     */
+    private Socket client;
+    private JTextField enter_file_name;
+    private JTextField contents;
+    private String fileText;
+
+    /**
+     *
+     *
+     */
+    public FileClient() {
+        ///make a frame for the client
         super("RetrieveFile program");
+        ///add a textfield on the frame for the client to enter a file name
         enter_file_name = new JTextField("Please enter file name here");
+        ///add an action listener to the textfield to receive the file path and send it to the server
         enter_file_name.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent E) {
+                ///store the text entered in text field
                 fileText = enter_file_name.getText();
+                ///use printstream to transfer text to server
                 PrintStream pr = null;
                 try {
+                    ///transfer the text using printstream to server
                     pr = new PrintStream(client.getOutputStream());
                     pr.println(fileText);
 
@@ -39,30 +48,36 @@ public class FileClient extends JFrame{
 
             }
         });
+        ///close frame if the closed button is pressed
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ///set the size of the frame
         this.setSize(400,500);
+        ///add textfield with action listener to frame
         this.add(enter_file_name);
-        contents = new JEditorPane();
+        ///add a JEditorPane to the frame to show the contents of the file
+        contents = new JTextField();
         contents.setEditable(false);
         this.add(contents);
-        this.setLayout(new FlowLayout());
+        this.setLayout(new GridLayout());
         this.setVisible(true);
     }
+
+    /**
+     *
+     * @throws IOException
+     */
     public void downloadFile() throws IOException {
-        byte[] b = new byte[20002];
-        InputStream fileX = client.getInputStream();
-        String store = String.valueOf(fileX.read(b, 0, b.length));
-        String result = IOUtils.toString(fileX, StandardCharsets.UTF_8);
-        System.out.println(store);
+        ///This function should be called after the file path has been sent to the server
+        Scanner sc = new Scanner(client.getInputStream());
+        String text = "";
+        while(sc.hasNextLine()){
+            text+= sc.nextLine();
+        }
+        System.out.println(text);
+        contents.setText(text);
     }
     public void runClient() throws IOException {
         client = new Socket("localhost", 4333);
-//        System.out.println("Please Enter name of the file");
-//        Scanner sc = new Scanner(System.in);
-//        String filePath = sc.next();
-//        PrintStream pr = new PrintStream(client.getOutputStream());
-//        pr.println(filePath);
-//        System.out.println(filePath);
     }
     public static void main(String[] args) throws IOException {
         FileClient Annice = new FileClient();

@@ -19,4 +19,6 @@ public HumanPlayer(int numPlayer){
         boardToPlay.fillPosition(position, PlayerChar);
 
     }
+
+
 }
