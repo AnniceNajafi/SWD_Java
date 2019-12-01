@@ -7,18 +7,37 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hangman extends JFrame {
+    /**
+     * instance variable, gLabel is a Label on which the hangman is drawn
+     */
     private JLabel gLabel;
+    /**
+     * instance variable, wordTable is a table that contains places for the letter to be compared with the
+     * actual word in the game
+     */
     private JTable wordTable;
+    /**
+     * instance variable, word is the hidden word in the game
+     */
     private String word;
+    /**
+     * instance variable, hg1 is the image if the hangman that gets updated each time the user has a wrong guess
+     */
     private BufferedImage hg1;
+    /**
+     * instance variable, integer j keeps track of the wrong guesses
+     */
     private static int j;
-    public Hangman() throws IOException {
+    private static int correct;
+    private JLabel lives;
+    /**
+     * constructor, creates a JFrame with a certain size and adds table
+     */
+    public Hangman() {
             super("UI - Hangman");
             System.out.println("Please enter a word to be guessed by the player");
             Scanner sc = new Scanner(System.in);
@@ -36,54 +55,98 @@ public class Hangman extends JFrame {
             wordTable.setGridColor(Color.BLACK);
             this.getContentPane().add(wordTable);
             this.setVisible(true);
-            hg1 = LoadImage("hangman_gui/hangman_1.png");
+
+            ///set the initial number of j to 1 and allow user to have up to 6 wrong guesses before gameover
             j=1;
 
     }
-    public void setUpProgram(){
 
-
-    }
-    public void addGuessTextField() throws IOException {
-        ////
+    /**
+     * function adds a textfield for user to enter letters also loads the hangman picture and updates it each
+     * time user enters a wrong guess
+     */
+    public void setupProgram()  {
+        ////instantiate gLabel
         gLabel = new JLabel();
-//        g1 = (Graphics2D) hg1.getGraphics();
+        ///add a textfield for the user to enter letter
         JTextField guess = new JTextField("Enter letter here");
+        ///add textfield to frame
         this.getContentPane().add(guess);
+        lives = new JLabel();
+        this.getContentPane().add(lives);
+        ///add action listener to textfield to receive the letter
         guess.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                ///store the first character of the word entered and compare to the actual hidden word
                 Character guessChar = guess.getText().charAt(0);
                 System.out.println(guessChar);
                 ArrayList<Integer> keep = checkLetter(guessChar);
-
+            ///if guess was wrong update hangman picture
             if(keep.size()==0){
+                    String checkLives = "number of lives left:"+(6-j)+"\n incorrect guesses"+(j);
+                    lives.setText(checkLives);
                     j++;
-                try {
                     paintHangMan();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
             }
+            ///if it was right update the table and place the correct guessed character on the table
                 for(int i=0; i<keep.size(); i++){
                     wordTable.setValueAt(guessChar, 0, keep.get(i));
-
+                    correct++;
+                }
+                ///check to see if user wins
+                if(correct==word.length()){
+                    paintWonMessage();
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Error! interrupted thread");
+                    }
+                    System.exit(0);
                 }
             }
         });
 
+        ///Only load the first image for hangman and add to frame
+        try {
+            hg1 = LoadImage("hangman_gui/hangman_1.png");
+            Paint(this.getGraphics(), hg1, 0);
+        } catch (IOException e) {
+            System.out.println("Error, could not open file");
+        }
 
-          hg1 = LoadImage("hangman_gui/hangman_" + Integer.toString(j) + ".png");
-          Paint(this.getGraphics(), hg1, 0);
 
           this.getContentPane().add(gLabel);
           this.setVisible(true);
 
     }
-    private void paintHangMan() throws IOException {
-        hg1 = LoadImage("hangman_gui/hangman_" + Integer.toString(j) + ".png");
-        Paint(this.getGraphics(), hg1, 0);
-    }
 
+    /**
+     *function paints the hangman on the screen and terminates the program once six wrong guesses have been made
+     */
+    private void paintHangMan() {
+        try {
+            hg1 = LoadImage("hangman_gui/hangman_" + Integer.toString(j) + ".png");
+            Paint(this.getGraphics(), hg1, 0);
+        } catch (IOException e) {
+            System.out.println("Error! could not open file.");
+        }
+        if(j==7){
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                System.out.println("Error, thread interrupted");
+            }
+            System.exit(0);
+        }
+    }
+    private void paintWonMessage(){
+        try {
+            hg1 = LoadImage("hangman_gui/game_won.png");
+            Paint(this.getGraphics(), hg1, 0);
+        } catch (IOException e) {
+            System.out.println("Error! could not open file.");
+        }
+    }
     /**
      *
      * @param guess
@@ -155,8 +218,5 @@ public class Hangman extends JFrame {
         Graphics2D g2d = (Graphics2D) g;
         ///draw the graphics to the
         g2d.drawImage(image, at, null);
-        /*
-        NOTE --> see references for the reference code
-         */
     }
 }
