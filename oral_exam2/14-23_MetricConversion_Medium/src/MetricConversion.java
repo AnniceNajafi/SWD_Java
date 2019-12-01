@@ -18,12 +18,15 @@ public class MetricConversion {
                 "\n units should be entered in plural form and all lower case " +
                 "\n all units should be written in the format below" +
                 "\n pounds, kilograms, grams, tonnes, ounces, inches"+
-                "\n feet, yards, miles, centimeters, meters, kilometers");
+                "\n feet, yards, miles, centimeters, meters, kilometers"+
+                "\n square inches, square miles, square yards, square feet" +
+                "\n degrees fahrenheit, degrees celsius");
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
         String unitFrom;
-        if(command.split(" ")[1].equals("square")) {
+        if(command.split(" ")[1].equals("square") || command.split(" ")[1].equals("degrees")) {
             unitFrom = command.split(" ")[1] + " " + command.split(" ")[2];
+
         }else{
             unitFrom = command.split(" ")[1];
         }
@@ -41,9 +44,12 @@ public class MetricConversion {
                 || unitFrom.equals("square kilometers") || unitFrom.equals("square millimeters")){
             System.out.println(advMetricAreaToEnglish(command));
         }
-        else if(unitFrom == "meters" || unitFrom =="centimeters" || unitFrom =="kilometers" || unitFrom =="kilograms"
+        else if(unitFrom.equals("meters") || unitFrom =="centimeters" || unitFrom =="kilometers" || unitFrom =="kilograms"
                 || unitFrom =="grams" || unitFrom =="tonnes"){
 
+        }
+        else if(unitFrom.equals("degrees fahrenheit") || unitFrom.equals("degrees celsius")){
+            System.out.println(tempConverter(command));
         }
 
 
@@ -265,6 +271,26 @@ public class MetricConversion {
         double result = basicMetricToEnglish(num+" "+unitFrom+" to "+unitTo);
         result = result*basicMetricToEnglish(1+" "+unitFrom+" to "+unitTo);
 
+        return result;
+    }
+    public static double tempConverter(String command){
+        double result;
+        String unitFrom = command.split(" ")[2];
+        double num = Double.parseDouble(command.split(" ")[0]);
+        String unitTo = command.split(" ")[5];
+        if(!command.split(" ")[4].equals("degrees")) {
+            System.out.println("invalid conversion");
+            return 0;
+        }
+        if(unitTo.equals("fahrenheit")){
+            result = num*9/5 + 32;
+        }
+        else if(unitTo.equals("celsius")){
+            result = (num - 32) * 5/9;
+        }
+        else{
+            result=0;
+        }
         return result;
     }
 }
