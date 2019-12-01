@@ -9,7 +9,7 @@ public class HumanPlayer  extends Player {
 
     /**
      * Constructor, creates a player with a certain character 'X' or 'O'
-     * @param numPlayer : player number indicates which character is associated with player if 1--> X else O
+     * @param numPlayer : player number indicates which character is associated with player if 1, X else O
      */
     public HumanPlayer(int numPlayer){
     if(numPlayer==1){
