@@ -15,6 +15,10 @@ import java.util.Scanner;
 public class FileClient extends JFrame{
     /**
      * instance variables
+     * client, Socket --> for the client to connect to server
+     * enter_file_name, JTextField to enter file name in graphical user interface
+     * contents, JTextField to show requested file or an error message
+     * fileText, String is the name of the requested file
      */
     private Socket client;
     private JTextField enter_file_name;
@@ -22,8 +26,8 @@ public class FileClient extends JFrame{
     private String fileText;
 
     /**
-     *
-     *
+     * Constructor --> Makes a frame with two textfields
+     * for user to request a file and receive the file contents found by server
      */
     public FileClient() {
         ///make a frame for the client
@@ -63,12 +67,17 @@ public class FileClient extends JFrame{
     }
 
     /**
-     *
-     * @throws IOException
+     * This function should be called after the file path has been sent to the server to receive the contents of
+     * the file requested that has been sent to the client by server
      */
-    public void downloadFile() throws IOException {
+    public void downloadFile(){
         ///This function should be called after the file path has been sent to the server
-        Scanner sc = new Scanner(client.getInputStream());
+        Scanner sc = null;
+        try {
+            sc = new Scanner(client.getInputStream());
+        } catch (IOException e) {
+            System.out.println("Error! No file requested");
+        }
         String text = "";
         while(sc.hasNextLine()){
             text+= sc.nextLine();
@@ -76,10 +85,19 @@ public class FileClient extends JFrame{
         System.out.println(text);
         contents.setText(text);
     }
-    public void runClient() throws IOException {
-        client = new Socket("localhost", 4333);
+
+    /**
+     *this function makes the client establish connection with the server otherwise print a message saying that
+     * establishing connection failed
+     */
+    public void runClient() {
+        try {
+            client = new Socket("localhost", 23600);
+        } catch (IOException e) {
+            System.out.println("Failed to establish connection with server");
+        }
     }
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         FileClient Annice = new FileClient();
         Annice.runClient();
         Annice.downloadFile();
