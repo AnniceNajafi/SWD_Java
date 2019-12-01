@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class HangmanDriver {
     public static void main(String[] args){
         ///Make a JFrame for the word to be entered
@@ -27,6 +28,7 @@ public class HangmanDriver {
                 String word = String.valueOf(wordField.getPassword());
                 Hangman game = new Hangman(word);
                 game.setupProgram();
+                startGame.dispose();
                 ///
             }
         });

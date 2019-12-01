@@ -5,13 +5,15 @@ public class Food {
     /**
      * instance variables
      * Enjoyment - double : each food item has an enjoyment
-     * Volume - double : Volume for each food item
      */
     private double Enjoyment;
+    /**
+     *  Volume - double : Volume for each food item
+     */
     private double Volume;
 
     /**
-     * constructor --> sets the value of the instance variables
+     * constructor, sets the value of the instance variables
      * @param Volume - double
      * @param Enjoyment - double
      */

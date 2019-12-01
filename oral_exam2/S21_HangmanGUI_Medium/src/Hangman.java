@@ -122,7 +122,7 @@ public class Hangman extends JFrame {
                     if (correct == word.length()) {
                         paintWonMessage();
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException ex) {
                             System.out.println("Error! interrupted thread");
                         }
@@ -145,7 +145,6 @@ public class Hangman extends JFrame {
           this.setVisible(true);
 
     }
-
     /**
      *function paints the hangman on the screen and terminates the program once six wrong guesses have been made
      */
@@ -159,6 +158,7 @@ public class Hangman extends JFrame {
         ///Once gameover all wrong guesses used, terminate the program.
         if(j==7){
             try {
+
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 System.out.println("Error, thread interrupted");

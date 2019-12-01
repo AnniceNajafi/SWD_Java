@@ -17,18 +17,20 @@ import java.util.List;
  */
 public class EnjoymentCalculator {
     /**
-     * instance variables
      * static so that we only have a single copy of the variables
      * foodlist contains a list of food objects to calculate the optimal enjoyment based on
-     * double - capacity : capacity of the stomach
      */
     private static List<Food> foodList;
+    /**
+     * static so that we only have a single copy of the variables
+     * double - capacity : capacity of the stomach
+     */
     private static double capacity;
 
     /**
      * Constructor: sets the value of the instance variables
      * @param foodList is a list of food objects
-     * @param capacity - type: double -> capacity of stomach
+     * @param capacity - type: double, capacity of stomach
      */
     public EnjoymentCalculator(List<Food> foodList, double capacity){
         this.foodList = foodList;
