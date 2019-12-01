@@ -28,7 +28,7 @@ public class LinkedList{
      * @return a boolean true if find no elements false if the LinkedList has elements
      */
     public boolean isEmpty(){
-        ///**Note: we only have to check the hea Node
+        ///**Note: we only have to check the head Node
         return head==null;
     }
 
