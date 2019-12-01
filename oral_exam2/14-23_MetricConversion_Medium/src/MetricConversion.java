@@ -1,4 +1,10 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
+
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 ///
 /**
  * @author Annice Najafi
@@ -12,8 +18,8 @@ import java.util.Scanner;
  */
 
 public class MetricConversion {
-
-    public static void main(String[] args){
+    JFrame frame;
+    public void testProgram(){
         System.out.println("Please Enter your desired conversion in this format <<5 meters to inches>>"+
                 "\n units should be entered in plural form and all lower case " +
                 "\n all units should be written in the format below" +
@@ -51,8 +57,64 @@ public class MetricConversion {
         else if(unitFrom.equals("degrees fahrenheit") || unitFrom.equals("degrees celsius")){
             System.out.println(tempConverter(command));
         }
+    }
+    public void runProgram(){
+        frame = new JFrame("Unit converter");
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setSize(640, 480);
+        frame.setBackground(Color.ORANGE);
+        JTextField convCommand = new JTextField("Enter command here");
+        JLabel instructions = new JLabel("Please Enter your desired conversion in this format <<5 meters to inches>>");
+        convCommand.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent E){
+                String command = convCommand.getText();
+                String unitFrom;
+                double res=0;
+                if(command.split(" ")[1].equals("square") || command.split(" ")[1].equals("degrees")) {
+                    unitFrom = command.split(" ")[1] + " " + command.split(" ")[2];
 
+                }else{
+                    unitFrom = command.split(" ")[1];
+                }
 
+                if(unitFrom.equals("pounds") || unitFrom.equals("ounces") || unitFrom.equals("inches") || unitFrom.equals("feet")
+                        || unitFrom.equals("yards") || unitFrom.equals("miles")){
+                    res = basicEnglishToMetric(command);
+                    System.out.println(basicEnglishToMetric(command));
+
+                }
+                else if(unitFrom.equals("square inches") || unitFrom.equals("square feet")
+                        || unitFrom.equals("square yards") || unitFrom.equals("square miles")){
+                    res = advEnglishAreaToMetric(command);
+                    System.out.println(advEnglishAreaToMetric(command));
+                }
+                else if(unitFrom.equals("square meters") || unitFrom.equals("square centimeters")
+                        || unitFrom.equals("square kilometers") || unitFrom.equals("square millimeters")){
+                    res = advMetricAreaToEnglish(command);
+                    System.out.println(advMetricAreaToEnglish(command));
+                }
+                else if(unitFrom.equals("meters") || unitFrom =="centimeters" || unitFrom =="kilometers" || unitFrom =="kilograms"
+                        || unitFrom =="grams" || unitFrom =="tonnes"){
+                    res = basicMetricToEnglish(command);
+                    System.out.println(basicMetricToEnglish(command));
+                }
+                else if(unitFrom.equals("degrees fahrenheit") || unitFrom.equals("degrees celsius")){
+                    res = tempConverter(command);
+                    System.out.println(tempConverter(command));
+                }
+                double hold =  Double.parseDouble(command.split(" ")[0]);
+                if(hold!=0 && res ==0){
+                    instructions.setText("invalid conversion");
+                }else {
+                    String result = res + " ";
+                    instructions.setText(result);
+                }
+            }
+        });
+        frame.add(instructions);
+        frame.add(convCommand);
+        frame.setLayout(new FlowLayout());
+        frame.setVisible(true);
     }
     public static double basicMetricToEnglish(String numWithUnits){
         double num = Double.parseDouble(numWithUnits.split(" ")[0]);
@@ -63,11 +125,13 @@ public class MetricConversion {
         if(unitFrom.equals("milligrams")){
             if(unitTo.equals("pounds")){
                 result = num * 0.00220461999989109/1000;
+
             }
             else if(unitTo.equals("ounces")){
                 result = num * 0.035274/1000;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///MASS CONVERSION from kilograms
         if(unitFrom.equals("kilograms")){
@@ -77,7 +141,8 @@ public class MetricConversion {
             else if(unitTo.equals("ounces")){
                 result = num * 35.274;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///MASS CONVERSION from grams
         if(unitFrom.equals("grams")){
@@ -87,7 +152,8 @@ public class MetricConversion {
             else if(unitTo.equals("ounces")){
                 result = num * 0.035274;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+                }
         }
         ///MASS CONVERSION from tonnes
         if(unitFrom.equals("tonnes")){
@@ -97,7 +163,8 @@ public class MetricConversion {
             else if(unitTo.equals("ounces")){
                 result = num * 35273.9999996032;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///LENGTH CONVERSION from meters
         if(unitFrom.equals("meters")){
@@ -113,7 +180,8 @@ public class MetricConversion {
             else if(unitTo.equals("miles")){
                 result = num * 0.00062137152777784086452;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///LENGTH CONVERSION from millimeters
         if(unitFrom.equals("millimeters")){
@@ -129,7 +197,8 @@ public class MetricConversion {
             else if(unitTo.equals("miles")){
                 result = num * 0.00062137152777784086452/1000;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///LENGTH CONVERSION from kilometers
         if(unitFrom.equals("kilometers")){
@@ -145,7 +214,8 @@ public class MetricConversion {
             else if(unitTo.equals("miles")){
                 result = num * 0.00062137152777784086452*1000;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+          }
         }
         if(unitFrom.equals("centimeters")){
             if(unitTo.equals("inches")){
@@ -160,8 +230,10 @@ public class MetricConversion {
             else if(unitTo.equals("miles")){
                 result = num * 0.00062137152777784086452/100;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+           }
         }
+
         return result;
     }
     public static double basicEnglishToMetric(String numWithUnits){
@@ -169,6 +241,7 @@ public class MetricConversion {
         String unitFrom = numWithUnits.split(" ")[1];
         String unitTo = numWithUnits.split(" ")[3];
         double result=0;
+
         ///MASS CONVERSION from POUND
         //sample question: How many kilograms is in 3 pounds
         if(unitFrom.equals("pounds")){
@@ -181,7 +254,8 @@ public class MetricConversion {
             else if(unitTo.equals("tonnes")){
                 result = num*2204.623;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///MASS CONVERSION from OUNCE
         if(unitFrom.equals("ounces")){
@@ -194,7 +268,8 @@ public class MetricConversion {
             else if(unitTo.equals("tonnes")){
                 result = num/35273.962;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+               }
         }
         ///LENGTH CONVERSION from INCH
         if(unitFrom.equals("inches")){
@@ -207,7 +282,8 @@ public class MetricConversion {
             else if(unitTo.equals("kilometers")){
                 result = num*num*0.0000254;
             }
-            else{System.out.println("Error, invalid conversion!");}
+            else{System.out.println("Error, invalid conversion!");
+            }
         }
         ///LENGTH CONVERSION from FOOT
         if(unitFrom.equals("feet")){
@@ -219,7 +295,8 @@ public class MetricConversion {
             }
             else if(unitTo.equals("kilometers")){
                 result = num*0.0003048;
-            }
+            }else{System.out.println("Error, invalid conversion!");
+               }
         }
         ///LENGTH CONVERSION from YARD
         if(unitFrom.equals("yards")){
@@ -231,7 +308,8 @@ public class MetricConversion {
             }
             else if(unitTo.equals("kilometers")){
                 result = num*0.0009144;
-            }
+            }else{System.out.println("Error, invalid conversion!");
+               }
         }
         ///LENGTH CONVERSION from MILE
         if(unitFrom.equals("miles")){
@@ -243,18 +321,20 @@ public class MetricConversion {
             }
             else if(unitTo.equals("kilometers")){
                 result = num*1.60934;
-            }
+            }else{System.out.println("Error, invalid conversion!");
+             }
         }
+
     return result;
     }
     public static double advEnglishAreaToMetric(String command){
         String unitFrom = command.split(" ")[2];
         double num = Double.parseDouble(command.split(" ")[0]);
+        if(!command.split(" ")[4].equals("square")) {
+            System.out.println("invalid conversion");
+            return 0;
+        }
         String unitTo = command.split(" ")[5];
-       if(!command.split(" ")[4].equals("square")) {
-           System.out.println("invalid conversion");
-           return 0;
-       }
         double result = basicEnglishToMetric(num+" "+unitFrom+" to "+unitTo);
         result = result*basicEnglishToMetric(1+" "+unitFrom+" to "+unitTo);
 
