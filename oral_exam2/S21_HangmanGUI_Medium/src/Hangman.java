@@ -48,8 +48,10 @@ public class Hangman extends JFrame {
      * instance variable, JLabel wrongGuesses is a label containing the wrong guesses the user has made
      */
     private JLabel wrongGuesses;
+
     /**
-     * constructor, creates a JFrame with a certain size and adds table
+     * constructor, creates a JFrame with a certain size and adds table according to the word given to it as an input
+     * @param word, String is passed to the function as input
      */
     public Hangman(String word) {
 

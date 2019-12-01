@@ -13,14 +13,14 @@ import java.util.Scanner;
 public class FileServer{
     /**
      * instance variables
-     * server : type -> ServerSocket, create a socket between the server and client
-     * connection: type -> Socket, for the requests to be received here
+     * server : type, ServerSocket, create a socket between the server and client
+     * connection: type, Socket, for the requests to be received here
      */
     private ServerSocket server;
     private Socket connection;
 
     /**
-     * Constructor --> establishes connection with client, if could not prints out an error message
+     * Constructor, establishes connection with client, if could not prints out an error message
      *
      */
     public FileServer()  {

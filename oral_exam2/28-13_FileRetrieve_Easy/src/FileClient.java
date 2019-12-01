@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class FileClient extends JFrame{
     /**
      * instance variables
-     * client, Socket --> for the client to connect to server
+     * client, Socket , for the client to connect to server
      * enter_file_name, JTextField to enter file name in graphical user interface
      * contents, JTextField to show requested file or an error message
      * fileText, String is the name of the requested file
@@ -26,7 +26,7 @@ public class FileClient extends JFrame{
     private String fileText;
 
     /**
-     * Constructor --> Makes a frame with two textfields
+     * Constructor, Makes a frame with two textfields
      * for user to request a file and receive the file contents found by server
      */
     public FileClient() {
