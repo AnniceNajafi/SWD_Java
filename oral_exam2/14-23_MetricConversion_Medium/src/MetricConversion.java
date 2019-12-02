@@ -23,7 +23,13 @@ public class MetricConversion {
      * JLabel to show the result
      */
     private static JFrame frame;
+    /**
+     * private static result is intended to hold the result of conversion
+     */
     private static String result;
+    /**
+     * constructor sets the size and background color of the frame
+     */
     public MetricConversion(){
         ///Make a frame
         frame = new JFrame("Unit converter");
