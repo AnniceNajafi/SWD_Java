@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-///
+
 /**
  * @author Annice Najafi
  * SWD-fall 2019
@@ -18,7 +18,16 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  */
 
 public class MetricConversion {
+    /**
+     * instance variable frame is a JFrame to include textfields for requests to be typed and
+     * JLabel to show the result
+     */
     JFrame frame;
+
+    /**
+     * This function asks the user to indicate what is their requested conversion, then it receives the request as a String
+     * and
+     */
     public void testProgram(){
         System.out.println("Please Enter your desired conversion in this format <<5 meters to inches>>"+
                 "\n units should be entered in plural form and all lower case " +
@@ -58,25 +67,40 @@ public class MetricConversion {
             System.out.println(tempConverter(command));
         }
     }
+
+    /**
+     * makes a frame and adds a textfield to the frame for the request to be typed then it will print the result of
+     * the conversion to a JLabel. The typed request will be passed to the appropriate function based on the command
+     */
     public void runProgram(){
+        ///Make a frame
         frame = new JFrame("Unit converter");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ///Set the size of the frame
         frame.setSize(640, 480);
+        ///Set the color of the frame
         frame.setBackground(Color.ORANGE);
+        ///Add a textfield
         JTextField convCommand = new JTextField("Enter command here");
+        ///Add a label to show instructions
         JLabel instructions = new JLabel("Please Enter your desired conversion in this format <<5 meters to inches>>");
+        ///Add an ActionListener to the textfield
         convCommand.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent E){
+                ///receive the text from the textfield
                 String command = convCommand.getText();
                 String unitFrom;
                 double res=0;
+                ///if the command is requesting temperature conversion or area conversion
+                ///the string will be parsed in a different way than it would be if it is a simple metric to
+                ///English or other way for length, mass or etc
                 if(command.split(" ")[1].equals("square") || command.split(" ")[1].equals("degrees")) {
                     unitFrom = command.split(" ")[1] + " " + command.split(" ")[2];
 
                 }else{
                     unitFrom = command.split(" ")[1];
                 }
-
+                ///give the command to the related function
                 if(unitFrom.equals("pounds") || unitFrom.equals("ounces") || unitFrom.equals("inches") || unitFrom.equals("feet")
                         || unitFrom.equals("yards") || unitFrom.equals("miles")){
                     res = basicEnglishToMetric(command);
@@ -116,6 +140,12 @@ public class MetricConversion {
         frame.setLayout(new FlowLayout());
         frame.setVisible(true);
     }
+
+    /**
+     * this function can handle Metric to English conversion for mass and length
+     * @param numWithUnits is the command handed to the function for example 5 meters to inches
+     * @return the number of equivalent English units
+     */
     public static double basicMetricToEnglish(String numWithUnits){
         double num = Double.parseDouble(numWithUnits.split(" ")[0]);
         String unitFrom = numWithUnits.split(" ")[1];
@@ -236,6 +266,11 @@ public class MetricConversion {
 
         return result;
     }
+    /**
+     * this function can handle English to Metric conversion for mass and length
+     * @param numWithUnits is the command handed to the function for example 5 inches to meters
+     * @return the number of equivalent metric units
+     */
     public static double basicEnglishToMetric(String numWithUnits){
         double num = Double.parseDouble(numWithUnits.split(" ")[0]);
         String unitFrom = numWithUnits.split(" ")[1];
@@ -327,6 +362,15 @@ public class MetricConversion {
 
     return result;
     }
+
+    /**
+     * This function can convert english area to Metric area, it receives a String and parses the string
+     * finds the number and converts the requested unit, function is static because there is no need for an object
+     * to be instantiated for the function to be used. function uses another function to convert
+     * @param command is a String that includes information about the number and the initial unit and the unit we want
+     * to convert to
+     * @return double converted number
+     */
     public static double advEnglishAreaToMetric(String command){
         String unitFrom = command.split(" ")[2];
         double num = Double.parseDouble(command.split(" ")[0]);
@@ -340,6 +384,15 @@ public class MetricConversion {
 
         return result;
     }
+
+    /**
+     * This function can convert metric area to english area, it receives a String and parses the string
+     * finds the number and converts the requested unit, function is static because there is no need for an object
+     * to be instantiated for the function to be used. function uses another function to convert
+     * @param command is a String that includes information about the number and the initial unit and the unit we want
+     * to convert to
+     * @return double converted number
+     */
     public static double advMetricAreaToEnglish(String command){
         String unitFrom = command.split(" ")[2];
         double num = Double.parseDouble(command.split(" ")[0]);
@@ -353,6 +406,13 @@ public class MetricConversion {
 
         return result;
     }
+
+    /**
+     * This function is intended to be used for temperature conversion if given temperature in fahrenheit
+     * it converts it to celsius or the other way
+     * @param command is a String that will be parsed and processed
+     * @return double temperature in the other system
+     */
     public static double tempConverter(String command){
         double result;
         String unitFrom = command.split(" ")[2];
