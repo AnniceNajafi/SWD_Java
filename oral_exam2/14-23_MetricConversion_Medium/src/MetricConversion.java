@@ -22,8 +22,17 @@ public class MetricConversion {
      * instance variable frame is a JFrame to include textfields for requests to be typed and
      * JLabel to show the result
      */
-    JFrame frame;
-
+    private static JFrame frame;
+    private static String result;
+    public MetricConversion(){
+        ///Make a frame
+        frame = new JFrame("Unit converter");
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ///Set the size of the frame
+        frame.setSize(640, 480);
+        ///Set the color of the frame
+        frame.setBackground(Color.ORANGE);
+    }
     /**
      * This function asks the user to indicate what is their requested conversion, then it receives the request as a String
      */
@@ -72,13 +81,6 @@ public class MetricConversion {
      * the conversion to a JLabel. The typed request will be passed to the appropriate function based on the command
      */
     public void runProgram(){
-        ///Make a frame
-        frame = new JFrame("Unit converter");
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ///Set the size of the frame
-        frame.setSize(640, 480);
-        ///Set the color of the frame
-        frame.setBackground(Color.ORANGE);
         ///Add a textfield
         JTextField convCommand = new JTextField("Enter command here");
         ///Add a label to show instructions
@@ -86,10 +88,10 @@ public class MetricConversion {
         ///Add an ActionListener to the textfield
         convCommand.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent E){
+                result="";
                 ///receive the text from the textfield
                 String command = convCommand.getText();
                 String unitFrom;
-                double res=0;
                 ///if the command is requesting temperature conversion or area conversion
                 ///the string will be parsed in a different way than it would be if it is a simple metric to
                 ///English or other way for length, mass or etc
@@ -102,36 +104,30 @@ public class MetricConversion {
                 ///give the command to the related function
                 if(unitFrom.equals("pounds") || unitFrom.equals("ounces") || unitFrom.equals("inches") || unitFrom.equals("feet")
                         || unitFrom.equals("yards") || unitFrom.equals("miles")){
-                    res = basicEnglishToMetric(command);
+                    result+= basicEnglishToMetric(command);
                     System.out.println(basicEnglishToMetric(command));
 
                 }
                 else if(unitFrom.equals("square inches") || unitFrom.equals("square feet")
                         || unitFrom.equals("square yards") || unitFrom.equals("square miles")){
-                    res = advEnglishAreaToMetric(command);
+                    result+=advEnglishAreaToMetric(command);
                     System.out.println(advEnglishAreaToMetric(command));
                 }
                 else if(unitFrom.equals("square meters") || unitFrom.equals("square centimeters")
                         || unitFrom.equals("square kilometers") || unitFrom.equals("square millimeters")){
-                    res = advMetricAreaToEnglish(command);
+                    result+=advMetricAreaToEnglish(command);
                     System.out.println(advMetricAreaToEnglish(command));
                 }
                 else if(unitFrom.equals("meters") || unitFrom.equals("centimeters") || unitFrom.equals("kilometers") || unitFrom.equals("kilograms")
                         || unitFrom.equals("grams") || unitFrom.equals("tonnes")){
-                    res = basicMetricToEnglish(command);
+                    result+=basicMetricToEnglish(command);
                     System.out.println(basicMetricToEnglish(command));
                 }
                 else if(unitFrom.equals("degrees fahrenheit") || unitFrom.equals("degrees celsius")){
-                    res = tempConverter(command);
+                    result+=tempConverter(command);
                     System.out.println(tempConverter(command));
                 }
-                double hold =  Double.parseDouble(command.split(" ")[0]);
-                if(hold!=0 && res ==0 && !unitFrom.equals("degrees celsius") || !unitFrom.equals("degrees fahrenheit")){
-                    instructions.setText("invalid conversion");
-                }else {
-                    String result = res + " ";
-                    instructions.setText(result);
-                }
+                instructions.setText(result);
             }
         });
         frame.add(instructions);
@@ -160,6 +156,7 @@ public class MetricConversion {
                 result = num * 0.035274/1000;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///MASS CONVERSION from kilograms
@@ -171,6 +168,7 @@ public class MetricConversion {
                 result = num * 35.274;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///MASS CONVERSION from grams
@@ -182,6 +180,7 @@ public class MetricConversion {
                 result = num * 0.035274;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
                 }
         }
         ///MASS CONVERSION from tonnes
@@ -193,6 +192,7 @@ public class MetricConversion {
                 result = num * 35273.9999996032;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///LENGTH CONVERSION from meters
@@ -210,6 +210,7 @@ public class MetricConversion {
                 result = num * 0.00062137152777784086452;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///LENGTH CONVERSION from millimeters
@@ -227,6 +228,7 @@ public class MetricConversion {
                 result = num * 0.00062137152777784086452/1000;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///LENGTH CONVERSION from kilometers
@@ -244,6 +246,7 @@ public class MetricConversion {
                 result = num * 0.00062137152777784086452*1000;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
           }
         }
         if(unitFrom.equals("centimeters")){
@@ -260,6 +263,7 @@ public class MetricConversion {
                 result = num * 0.00062137152777784086452/100;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
            }
         }
 
@@ -289,6 +293,7 @@ public class MetricConversion {
                 result = num*2204.623;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///MASS CONVERSION from OUNCE
@@ -303,6 +308,7 @@ public class MetricConversion {
                 result = num/35273.962;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
                }
         }
         ///LENGTH CONVERSION from INCH
@@ -317,6 +323,7 @@ public class MetricConversion {
                 result = num*num*0.0000254;
             }
             else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
             }
         }
         ///LENGTH CONVERSION from FOOT
@@ -330,6 +337,7 @@ public class MetricConversion {
             else if(unitTo.equals("kilometers")){
                 result = num*0.0003048;
             }else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
                }
         }
         ///LENGTH CONVERSION from YARD
@@ -343,6 +351,7 @@ public class MetricConversion {
             else if(unitTo.equals("kilometers")){
                 result = num*0.0009144;
             }else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
                }
         }
         ///LENGTH CONVERSION from MILE
@@ -356,6 +365,7 @@ public class MetricConversion {
             else if(unitTo.equals("kilometers")){
                 result = num*1.60934;
             }else{System.out.println("Error, invalid conversion!");
+                JOptionPane.showMessageDialog(frame,"invalid conversion!");
              }
         }
 
@@ -375,6 +385,7 @@ public class MetricConversion {
         double num = Double.parseDouble(command.split(" ")[0]);
         if(!command.split(" ")[4].equals("square")) {
             System.out.println("invalid conversion");
+            JOptionPane.showMessageDialog(frame,"invalid conversion!");
             return 0;
         }
         String unitTo = command.split(" ")[5];
@@ -398,6 +409,7 @@ public class MetricConversion {
         String unitTo = command.split(" ")[5];
         if(!command.split(" ")[4].equals("square")) {
             System.out.println("invalid conversion");
+            JOptionPane.showMessageDialog(frame,"invalid conversion!");
             return 0;
         }
         double result = basicMetricToEnglish(num+" "+unitFrom+" to "+unitTo);
@@ -419,6 +431,7 @@ public class MetricConversion {
         String unitTo = command.split(" ")[5];
         if(!command.split(" ")[4].equals("degrees")) {
             System.out.println("invalid conversion");
+            JOptionPane.showMessageDialog(frame,"invalid conversion!");
             return 0;
         }
         if(unitTo.equals("fahrenheit")){
