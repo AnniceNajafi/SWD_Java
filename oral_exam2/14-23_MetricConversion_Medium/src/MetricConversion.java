@@ -26,7 +26,6 @@ public class MetricConversion {
 
     /**
      * This function asks the user to indicate what is their requested conversion, then it receives the request as a String
-     * and
      */
     public void testProgram(){
         System.out.println("Please Enter your desired conversion in this format <<5 meters to inches>>"+
@@ -117,8 +116,8 @@ public class MetricConversion {
                     res = advMetricAreaToEnglish(command);
                     System.out.println(advMetricAreaToEnglish(command));
                 }
-                else if(unitFrom.equals("meters") || unitFrom =="centimeters" || unitFrom =="kilometers" || unitFrom =="kilograms"
-                        || unitFrom =="grams" || unitFrom =="tonnes"){
+                else if(unitFrom.equals("meters") || unitFrom.equals("centimeters") || unitFrom.equals("kilometers") || unitFrom.equals("kilograms")
+                        || unitFrom.equals("grams") || unitFrom.equals("tonnes")){
                     res = basicMetricToEnglish(command);
                     System.out.println(basicMetricToEnglish(command));
                 }
@@ -127,7 +126,7 @@ public class MetricConversion {
                     System.out.println(tempConverter(command));
                 }
                 double hold =  Double.parseDouble(command.split(" ")[0]);
-                if(hold!=0 && res ==0){
+                if(hold!=0 && res ==0 && !unitFrom.equals("degrees celsius") || !unitFrom.equals("degrees fahrenheit")){
                     instructions.setText("invalid conversion");
                 }else {
                     String result = res + " ";
