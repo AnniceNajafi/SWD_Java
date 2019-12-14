@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/extra_credit/10-13_Shapes_Easy/10-13_Shapes_Easy.iml" filepath="$PROJECT_DIR$/extra_credit/10-13_Shapes_Easy/10-13_Shapes_Easy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extra_credit/12-14_GuessNumber_Medium/12-14_GuessNumber_Medium.iml" filepath="$PROJECT_DIR$/extra_credit/12-14_GuessNumber_Medium/12-14_GuessNumber_Medium.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam2/14-23_MetricConversion_Medium/14-23_MetricConversion_Medium.iml" filepath="$PROJECT_DIR$/oral_exam2/14-23_MetricConversion_Medium/14-23_MetricConversion_Medium.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/20190904-Quiz/20190904-Quiz.iml" filepath="$PROJECT_DIR$/quizzes/20190904-Quiz/20190904-Quiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/20190920-Quiz.iml" filepath="$PROJECT_DIR$/quizzes/20190920-Quiz.iml" />
