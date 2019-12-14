@@ -7,15 +7,41 @@ import java.util.Random;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class GuessNumber extends JPanel {
-
+    /**
+     * instance variables
+     */
+    /**
+     * number is the number to be guessed
+     */
     private int number;
+    /**
+     * frame to hold the panel for the game
+     */
     private JFrame frame;
+    /**
+     * textfield for the guess to be entered
+     */
     private JTextField enter;
+    /**
+     * instructions as indicated by the problem statement
+     */
     private JLabel instructions;
+    /**
+     * a button to set the number or restart the game
+     */
     private JButton numberPicker;
+    /**
+     * This JLabel tells the user whether their guess is close to the actual number or not
+     */
     private JLabel hotOrCold;
+    /**
+     * This variable holds the previous guess made by the user to get compared to the new guess
+     */
     private int prevGuess;
 
+    /**
+     * constructor, creates a new JFrame and adds a JPanel to it and the related buttons and texts
+     */
     public GuessNumber(){
         prevGuess=500;
         frame = new JFrame("Guess Number game");
@@ -24,6 +50,7 @@ public class GuessNumber extends JPanel {
         frame.setSize(1000, 800);
         ///Set the color of the frame
         this.setBackground(Color.ORANGE);
+        ///Add instructions
         enter = new JTextField("Please enter number here");
         instructions=new JLabel("I have a number between 1 and 1000. Can you guess my number?");
         this.add(instructions);
@@ -55,17 +82,30 @@ public class GuessNumber extends JPanel {
         this.add(enter);
         frame.setVisible(true);
     }
+
+    /**
+     * This function is defined to be called to reset the background of the game and the numeber
+     */
     private void resetFrame(){
         enter.setEditable(true);
         this.setBackground(Color.orange);
         instructions.setText("I have a number between 1 and 1000. Can you guess my number?");
         hotOrCold.setText("Welcome");
     }
+
+    /**
+     * This function picks a random number between 0 and 1000
+     */
     private void pickNumber(){
-        number = new Random().nextInt(1000) ;
+        number = new Random().nextInt(999)+1 ;
         System.out.println(number);
     }
 
+    /**
+     * This function validates that the user enters a valid number
+     * @param entry is the user's input as a String
+     * @return a boolean , true if it is a valid number false otherwise
+     */
     private boolean validateNumber(String entry){
         do
         {
@@ -81,6 +121,12 @@ public class GuessNumber extends JPanel {
         }
         while (true);
     }
+
+    /**
+     * checkNumber function checks if the number is higher than the actual number or lower and relative to the previous guess
+     * then changes the background color
+     * @param num is the number entered by the user to be checked
+     */
     private void checkNumber(int num){
         if(Math.abs(number - num) > Math.abs(number - prevGuess)){
             this.setBackground(Color.RED);
